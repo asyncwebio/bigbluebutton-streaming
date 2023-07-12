@@ -100,6 +100,11 @@ const StartButton = styled(Button)`
   bottom: ${mdPaddingX};
 `;
 
+const Loader = styled.div`
+  display: flex;
+  align-self: center;
+`;
+
 export default {
   UrlError,
   StreamVideoModal,
@@ -107,4 +112,5 @@ export default {
   InputBox,
   ExternalVideoNote,
   StartButton,
+  Loader
 };

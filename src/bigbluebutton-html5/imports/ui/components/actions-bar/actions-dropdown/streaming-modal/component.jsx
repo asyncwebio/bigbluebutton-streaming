@@ -4,6 +4,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import Settings from '/imports/ui/services/settings';
 import Styled from './styles';
 import { startStreaming } from './service';
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 
 class StreamingModal extends Component {
@@ -11,82 +12,90 @@ class StreamingModal extends Component {
     super(props);
 
     this.state = {
-      streamUrl:'',
-      streamKey:'',
-      errorMsg:'',
+      streamUrl: '',
+      streamKey: '',
+      errorMsg: '',
+      isLoading: false,
     };
 
-    
+
     this.renderUrlError = this.renderUrlError.bind(this);
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.startStreamingHandler = this.startStreamingHandler.bind(this);
   }
 
- 
- async startStreamingHandler(){
+
+  async startStreamingHandler() {
     const {
       closeModal,
       handleStreamingStatus
-    }=this.props;
-    const {streamUrl,streamKey} = this.state;
-   
-    if(!streamUrl&&!streamKey){
+    } = this.props;
+    const { streamUrl, streamKey } = this.state;
+
+    if (!streamUrl && !streamKey) {
       this.setState({
         ...this.state,
-        errorMsg:"Both input fields are required"
+        errorMsg: "Both input fields are required"
       })
-    }else if(!streamUrl){
+    } else if (!streamUrl) {
       this.setState({
         ...this.state,
-        errorMsg:"RTMP URL is required"
+        errorMsg: "RTMP URL is required"
       })
-    }else if(!streamKey){
+    } else if (!streamKey) {
       this.setState({
         ...this.state,
-        errorMsg:"Stream Key is required"
+        errorMsg: "Stream Key is required"
       })
-    }else{
+    } else {
       try {
-      const response= await startStreaming(this.state.streamUrl,this.state.streamKey)
-      if(response.status == 200){
-        handleStreamingStatus()
-        closeModal();
-      }
-     
+        this.setState({
+          ...this.state,
+          isLoading: true
+        })
+        const response = await startStreaming(this.state.streamUrl, this.state.streamKey)
+        if (response.status == 200) {
+          handleStreamingStatus()
+          closeModal();
+        }
+
       } catch (error) {
         console.error(error)
-      this.setState({
-        ...this.state,
-        errorMsg:error
-      }) 
+
+        this.setState({
+          ...this.state,
+          errorMsg: error,
+          isLoading: false
+        })
+
       }
-      
+
     }
-   
+
   }
 
-  
 
-  handleChangeInput(ev){
-    const {name, value} = ev.target
-    
+
+  handleChangeInput(ev) {
+    const { name, value } = ev.target
+
     this.setState({
       ...this.state,
-      [name]:value,
-      errorMsg:""
+      [name]: value,
+      errorMsg: ""
     })
 
   }
-  
+
 
   renderUrlError() {
-    
+
     const { animations } = Settings.application;
     return (
       this.state.errorMsg
         ? (
           <Styled.UrlError animations={animations}>
-           { this.state.errorMsg}
+            {this.state.errorMsg}
           </Styled.UrlError>
         )
         : null
@@ -94,12 +103,12 @@ class StreamingModal extends Component {
   }
 
   render() {
-    const {  closeModal } = this.props;
+    const { closeModal } = this.props;
     const { url, sharing } = this.state;
     const { animations } = Settings.application;
 
-   
-  
+
+
     return (
       <Styled.StreamVideoModal
         onRequestClose={closeModal}
@@ -122,7 +131,7 @@ class StreamingModal extends Component {
                 onCopy={(e) => { e.stopPropagation(); }}
               />
             </label>
-            <br/>
+            <br />
             <label htmlFor="stream-key">
               {"Stream Key"}
               <input
@@ -141,14 +150,16 @@ class StreamingModal extends Component {
           <div>
             {this.renderUrlError()}
           </div>
+          {
+            this.state.isLoading ? <Styled.Loader><CircularProgress /></Styled.Loader> : <Styled.StartButton
+              label={"Start Streaming"}
+              onClick={this.startStreamingHandler}
+              // disabled={startDisabled}
+              data-test="startNewVideo"
+              color="primary"
+            />
+          }
 
-          <Styled.StartButton
-            label={"Start Streaming"}
-            onClick={this.startStreamingHandler}
-            // disabled={startDisabled}
-            data-test="startNewVideo"
-            color="primary"
-          />
         </Styled.Content>
       </Styled.StreamVideoModal>
     );

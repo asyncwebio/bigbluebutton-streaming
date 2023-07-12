@@ -2,7 +2,7 @@
 import Auth from '/imports/ui/services/auth';
 import axios from 'axios';
 
-const URL = 'http://localhost:4000'
+const URL = window.location.origin
 
 const config = {
   headers: {
@@ -19,6 +19,8 @@ const startStreaming = async (streamUrl, streamKey) => {
       hideUserListAndChat: false,
       rtmpUrl: `${streamUrl}/${streamKey}`
     };
+
+    console.log(URL)
 
     const response = await axios.post(`${URL}/bot/start`, data, config);
 
