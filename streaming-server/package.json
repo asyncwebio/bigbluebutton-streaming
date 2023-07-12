@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Stream bbb meeting",
   "scripts": {
-    "start": "sh -c 'bash ./docker-entrypoint.sh && node bbb_stream.js'",
+    "start": "node app.js",
     "dev": "node app.js"
   },
   "keywords": [

@@ -79,6 +79,23 @@ async function main() {
             const pages = await browser.pages()
             page = pages[0]
 
+            // Listen for the target (browser tab) creation
+            browser.on('targetcreated', async (target) => {
+                // Check if the target is a page
+                if (target.type() === 'page') {
+                    const newPage = await target.page();
+
+                    // Listen for the page close event
+                    newPage.on('close', async () => {
+                        // Perform actions when the page is closed
+                        console.log('Browser tab closed');
+                        removeContainer();
+                        // Add your actions here
+                        // ...
+                    });
+                }
+            });
+
             await page._client.send('Emulation.clearDeviceMetricsOverride')
             await page.goto(url, { waitUntil: 'networkidle2' })
             await page.setBypassCSP(true)
@@ -123,6 +140,7 @@ async function main() {
                 console.log(`child process exited with code ${code}`);
 
             });
+
 
 
 
