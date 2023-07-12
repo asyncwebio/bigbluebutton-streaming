@@ -6,6 +6,7 @@
 <p align="center">This free application will enables Quick setup and Easy streaming.</p>
 
 <br />
+<img style="width: 100%; height: auto;" src="/static/bigbluebutton-streaming.gif" alt="bigbluebutton-streaming" /> <br/><br/>
 
 ## ⏳ Installation
 
