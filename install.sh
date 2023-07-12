@@ -23,6 +23,13 @@ if [[ $version == "2.6.10" ]]; then
         echo "bundle-original folder already exists. Skipping copy and ownership changes."
     fi
 
+    if sudo tar -xzvf "$(pwd)"/build/*.tar.gz -C /usr/share/meteor; then
+      echo "files are copied to meteor"
+    else
+       echo "Error: Failed copy files to meteor"
+       exit 1
+    fi
+
 
     # Start bbb-html5 service
     if sudo systemctl start bbb-html5; then

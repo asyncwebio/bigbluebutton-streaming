@@ -7,4 +7,18 @@
 
 <br />
 
+## ⏳ Installation
 
+- Clone the respository.
+- Goto `bigbluebutton-streaming/streaming-server/`
+- Add `.env` file.
+ ```bash
+BBB_URL=<BigBlueButton URL>
+BBB_SECRET=<BigBlueButton secret>
+IMAGE_NAME=bbb-stream
+```
+> Note: Please keep it IMAGE_NAME=bbb-stream as it is.
+- Goto `bigbluebutton-streaming/`
+- run install .sh
+
+> Note: install.sh will restart the bigbluebutton server, please make sure there is no meetings running on the server.
