@@ -14,8 +14,8 @@
 - Goto `bigbluebutton-streaming/streaming-server/`
 - Add `.env` file.
  ```bash
-BBB_URL=<BigBlueButton URL>
-BBB_SECRET=<BigBlueButton secret>
+BBB_URL=https://<Your Domain>/bigbluebutton/ 
+BBB_SECRET=Fc*****************************LQ
 IMAGE_NAME=bbb-stream
 ```
 > Note: Please keep it IMAGE_NAME=bbb-stream as it is.
@@ -27,3 +27,10 @@ IMAGE_NAME=bbb-stream
 <br/>
 
 >Make sure to stop streaming before Ending the bigbluebutton session.
+
+<br/>
+
+## ⏳ Uninstallation
+
+- Goto `bigbluebutton-streaming`.
+- run `uninstall.sh`.

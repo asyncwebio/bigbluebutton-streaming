@@ -34,11 +34,21 @@ if [[ $version == "2.6.10" ]]; then
         # Navigate to src/bigbluebutton-html5 directory
     cd src/bigbluebutton-html5
 
-    # Set build path
-    build_path=$(cd "$(dirname "$(dirname "$(pwd)")")/build" && pwd)
+    if npm install --legacy-peer-deps; then
+      echo "Packages installed successfully"
+    else 
+      echo "Error:Failed install packages"
+      exit 1
+    fi
+    
+    # Create build folder if it doesn't exist
+    build_path=$(dirname "$(dirname "$(pwd)")")/build
+    if [[ ! -d "$build_path" ]]; then
+        mkdir "$build_path" || { echo "Error: Failed to create build folder"; exit 1; }
+    fi
 
     # Build the project
-    if meteor build --server-only $build_path; then
+    if meteor build --server-only "$build_path"; then
         echo "Build successful"
     else
         echo "Error: Failed to build"
@@ -77,6 +87,14 @@ if [[ $version == "2.6.10" ]]; then
     # Navigate to streaming-server directory
     cd "$(pwd)"/streaming-server
 
+    # Install packages
+    if  npm install; then
+        echo "Packages installed successfully"
+    else
+        echo "Error: Failed to install packages"
+        exit 1
+    fi
+
      # Copy streaming.nginx file to /usr/share/bigbluebutton/nginx
     sudo cp streaming.nginx /usr/share/bigbluebutton/nginx || { echo "Error: Failed to copy streaming.nginx"; exit 1; }
 
@@ -99,13 +117,7 @@ if [[ $version == "2.6.10" ]]; then
     # Install PM2
     sudo npm install -g pm2
 
-    # Install packages
-    if sudo npm install; then
-        echo "Packages installed successfully"
-    else
-        echo "Error: Failed to install packages"
-        exit 1
-    fi
+    
 
     # Run npm start command with PM2
     if pm2 start npm --name "bbb-streaming" -- start; then
