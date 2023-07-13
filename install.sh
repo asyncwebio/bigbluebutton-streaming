@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 
+# check user if root throw error
+current_user=$(whoami)
+
+if [[$current_user == "root"]]; then
+    echo "Do not run this script in root"
+    exit 1
+fi
+
 # Get the BigBlueButton version from the release file
 version=$(grep -oP 'BIGBLUEBUTTON_RELEASE=\K[\d.]+' /etc/bigbluebutton/bigbluebutton-release)
 
@@ -17,11 +25,27 @@ if [[ $version == "2.6.10" ]]; then
         sudo cp -R /usr/share/meteor/bundle /usr/share/meteor/bundle-original || { echo "Error: Failed to copy bundle"; exit 1; }
 
         # Set ownership of copied files to the current user
-        current_user=$(whoami)
+        
         sudo chown -R $current_user:$current_user /usr/share/meteor/bundle-original
     else
         echo "bundle-original folder already exists. Skipping copy and ownership changes."
     fi
+    
+        # Navigate to src/bigbluebutton-html5 directory
+    cd src/bigbluebutton-html5
+
+    # Set build path
+    build_path=$(cd "$(dirname "$(dirname "$(pwd)")")/build" && pwd)
+
+    # Build the project
+    if meteor build --server-only $build_path; then
+        echo "Build successful"
+    else
+        echo "Error: Failed to build"
+        exit 1
+    fi
+    
+    cd ../../
 
     if sudo tar -xzvf "$(pwd)"/build/*.tar.gz -C /usr/share/meteor; then
       echo "files are copied to meteor"

@@ -23,3 +23,7 @@ IMAGE_NAME=bbb-stream
 - run install .sh
 
 > Note: install.sh will restart the bigbluebutton server, please make sure there is no meetings running on the server.
+
+<br/>
+
+>Make sure to stop streaming before Ending the bigbluebutton session.
