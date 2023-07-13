@@ -1,11 +1,9 @@
 #!/bin/bash
 set -e
 
-# check user if root throw error
-current_user=$(whoami)
-
-if [[$current_user == "root"]]; then
-    echo "Do not run this script in root"
+# Check if the user is root
+if [[ $EUID -eq 0 ]]; then
+    echo "Error: This script should not be run as root."
     exit 1
 fi
 
