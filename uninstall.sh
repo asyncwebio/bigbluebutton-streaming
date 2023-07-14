@@ -8,7 +8,7 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 # Check if bundle-original folder is exists
-    if [[  -d "/usr/share/meteor/bundle-original" ]]; then
+    if [[  -d "/usr/share/meteor/bbb-html5-original" ]]; then
 
         #Delete copied bundle 
        if sudo rm -r /usr/share/meteor/bundle; then
@@ -19,7 +19,7 @@ fi
        fi
 
         # Copy bundle to bundle-original folder
-        sudo mv  /usr/share/meteor/bundle-original /usr/share/meteor/bundle || { echo "Error: Failed to rename bundle"; exit 1; }
+        sudo mv  /usr/share/meteor/bbb-html5-original /usr/share/meteor/bundle || { echo "Error: Failed to rename bundle"; exit 1; }
 
         # Set ownership of copied files to the current user
         
@@ -32,5 +32,5 @@ fi
           exit 1
         fi
     else
-        echo "bundle-original folder is not exist,You already uninstalled, or bigbluebutton streaming is not installed."
+        echo "bbb-html5-original folder is not exist,You already uninstalled, or bigbluebutton streaming is not installed."
     fi
