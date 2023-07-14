@@ -94,4 +94,5 @@ We also offer advanced user management, seamless integration options, and compre
 
 Ready to embrace the next level of digital education?
 
-**[Sign Up](https://higheredlab.com)** Now for HigherEdLab's BigBlueButton Hosting Service and transform the way you teach online.
+<a href="https://higheredlab.com" target="_blank"><strong>Sign Up</strong></a> Now for HigherEdLab's BigBlueButton Hosting Service and transform the way you teach online.
+
