@@ -39,13 +39,13 @@ if [[ $version == "2.6.10" ]]; then
     cd ..
 
     # Check if bundle-original folder already exists
-    if [[ ! -d "/usr/share/meteor/bundle-original" ]]; then
+    if [[ ! -d "/usr/share/meteor/bbb-html5-original" ]]; then
         # Copy bundle to bundle-original folder
-        sudo cp -R /usr/share/meteor/bundle /usr/share/meteor/bundle-original || { echo "Error: Failed to copy bundle"; exit 1; }
+        sudo cp -R /usr/share/meteor/bundle /usr/share/meteor/bbb-html5-original || { echo "Error: Failed to copy bundle"; exit 1; }
 
         # Set ownership of copied files to the current user
         
-        sudo chown -R $current_user:$current_user /usr/share/meteor/bundle-original
+        sudo chown -R $current_user:$current_user /usr/share/meteor/bbb-html5-original
     else
         echo "bundle-original folder already exists. Skipping copy and ownership changes."
     fi
