@@ -17,6 +17,22 @@ It's simple to use - enter the RTMP URL and access key, click on "Start Streamin
 
 Experience this revolutionary extension today. Unleash the full potential of virtual learning with BigBlueButton Streaming, because education should know no boundaries.</p>
 
+## ⏳ Unlock Limitless Learning: Key Features of BigBlueButton Streaming
+
+1. **Live Streaming on Multiple Platforms**: Directly stream your classroom to YouTube, Facebook, Vimeo, or any RTMP server, maximizing your reach and availability for students around the world.
+2. **Ease of Streaming:** Begin live streaming your classes simply by entering the RTMP URL and access key, and pressing "Start Streaming."
+3. **Large-Scale Class Capacity**: Accommodate thousands of students in a single class, bypassing the original 100 users limit of BigBlueButton.
+4. **Compatibility with BigBlueButton**: Works directly within BigBlueButton, the widely-adopted virtual classroom software used by many educational institutions globally.
+5. **Open-Source and Free**: BigBlueButton Streaming is an open-source software extension, available to all users at no cost.
+
+## ⏳ 5 Power-Packed Benefits: Maximize Your Teaching Impact with BigBlueButton Streaming
+
+1. **Expanded Reach**: You can now teach thousands of students from various geographical locations simultaneously.
+2. **Increased Accessibility**: With classes being streamed on popular platforms, students can access lessons from devices they already use in their everyday lives.
+3. **Cost-Efficiency**: As a free, open-source software, BigBlueButton Streaming allows educational institutions to reduce costs associated with premium virtual classroom tools.
+4. **Flexibility and Convenience**: The ability to schedule large classes or one-time events provides flexibility to educators and convenience to learners.
+5. **Ease of Integration**: Being an extension of the already popular BigBlueButton, integrating this tool into existing educational frameworks is straightforward and hassle-free.
+
 ## ⏳ Installation
 
 - Clone the respository.
