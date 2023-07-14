@@ -4,7 +4,7 @@ const Docker = require('dockerode');
 const dotenv = require("dotenv");
 const axios = require('axios');
 const cors = require('cors');
-
+const fs = require('fs');
 const constructUrl = require('./utils/construct-url')
 const xmlToJson = require('./utils/xmltojson')
 
@@ -21,13 +21,12 @@ app.use(express.static('public'));
 app.use(cors());
 
 
-
 const bbb = {
   host: process.env.BBB_URL,
   salt: process.env.BBB_SECRET,
 };
 
-const containerName = process.env.IMAGE_NAME;
+const containerName = 'bbb-stream';
 
 app.post('/bot/start', async (req, res) => {
   try {

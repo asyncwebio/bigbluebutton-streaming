@@ -17,6 +17,27 @@ echo "BigBlueButton version: $version"
 if [[ $version == "2.6.10" ]]; then
     echo "Version is 2.6.10"
 
+    cd streaming-server/
+    echo "$(pwd)"
+   # Read the values from the bbb-web.properties file
+    BBB_URL=$(grep -oP '(?<=bigbluebutton\.web\.serverURL=).*' /etc/bigbluebutton/bbb-web.properties)
+    BBB_URL="${BBB_URL}/bigbluebutton/"
+    BBB_SECRET=$(grep -oP '(?<=securitySalt=).*' /etc/bigbluebutton/bbb-web.properties)
+
+    # Check if .env file exists
+    if [[ -f .env ]]; then
+      # Overwrite existing environment variables if they exist
+    sed -i -E "s~^(BBB_URL=).*~\1${BBB_URL}~" .env
+    sed -i -E "s~^(BBB_SECRET=).*~\1${BBB_SECRET}~" .env
+    else
+    # Create new .env file
+    echo "BBB_URL=${BBB_URL}" >> .env
+    echo "BBB_SECRET=${BBB_SECRET}" >> .env
+    fi
+
+    cat .env
+    cd ..
+
     # Check if bundle-original folder already exists
     if [[ ! -d "/usr/share/meteor/bundle-original" ]]; then
         # Copy bundle to bundle-original folder
