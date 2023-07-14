@@ -11,14 +11,6 @@
 ## ⏳ Installation
 
 - Clone the respository.
-- Goto `bigbluebutton-streaming/streaming-server/`
-- Add `.env` file.
- ```bash
-BBB_URL=https://<Your Domain>/bigbluebutton/ 
-BBB_SECRET=Fc*****************************LQ
-IMAGE_NAME=bbb-stream
-```
-> Note: Please keep it IMAGE_NAME=bbb-stream as it is.
 - Goto `bigbluebutton-streaming/`
 - run install .sh
 
@@ -32,5 +24,5 @@ IMAGE_NAME=bbb-stream
 
 ## ⏳ Uninstallation
 
-- Goto `bigbluebutton-streaming`.
+- Goto `bigbluebutton-streaming/`.
 - run `uninstall.sh`.
