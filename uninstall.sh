@@ -32,5 +32,5 @@ fi
           exit 1
         fi
     else
-        echo "bigbluebutton-html5 folder is not exist,You already uninstalled, or bigbluebutton streaming is not installed."
+        echo "bbb-html5-original folder is not exist,You already uninstalled, or bigbluebutton streaming is not installed."
     fi
