@@ -7,6 +7,8 @@ if [[ $EUID -eq 0 ]]; then
     exit 1
 fi
 
+
+
 # Get the BigBlueButton version from the release file
 version=$(grep -oP 'BIGBLUEBUTTON_RELEASE=\K[\d.]+' /etc/bigbluebutton/bigbluebutton-release)
 
@@ -36,18 +38,22 @@ if [[ $version == "2.6.10" ]]; then
     fi
 
     cat .env
+
+    sudo usermod -aG docker $USER
+    newgrp docker
+
     cd ..
 
     # Check if bundle-original folder already exists
     if [[ ! -d "/usr/share/meteor/bbb-html5-original" ]]; then
-        # Copy bundle to bundle-original folder
+        # Copy bundle to bbb-html5-original folder
         sudo cp -R /usr/share/meteor/bundle /usr/share/meteor/bbb-html5-original || { echo "Error: Failed to copy bundle"; exit 1; }
 
         # Set ownership of copied files to the current user
         
         sudo chown -R $current_user:$current_user /usr/share/meteor/bbb-html5-original
     else
-        echo "bundle-original folder already exists. Skipping copy and ownership changes."
+        echo "bbb-html5-original folder already exists. Skipping copy and ownership changes."
     fi
     
         # Navigate to src/bigbluebutton-html5 directory
@@ -58,6 +64,15 @@ if [[ $version == "2.6.10" ]]; then
     else 
       echo "Error:Failed install packages"
       exit 1
+    fi
+
+    # Check if Meteor is installed
+    if ! command -v meteor &> /dev/null; then
+        # Meteor is not installed, so install it
+        echo "Meteor is not installed. Installing Meteor..."
+        curl https://install.meteor.com/ | sh
+    else
+        echo "Meteor is already installed"
     fi
     
     # Create build folder if it doesn't exist
