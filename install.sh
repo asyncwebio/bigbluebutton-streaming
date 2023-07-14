@@ -38,10 +38,7 @@ if [[ $version == "2.6.10" ]]; then
     fi
 
     cat .env
-
-    sudo usermod -aG docker $USER
-    newgrp docker
-
+    
     cd ..
 
     # Check if bundle-original folder already exists
