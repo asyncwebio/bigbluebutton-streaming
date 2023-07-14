@@ -82,16 +82,16 @@ app.post('/bot/start', async (req, res) => {
         return res.status(500).json({ error: `Container '${containerName}' with ID '${containerId}' is already streaming. You can stream when that streaming ends.` });
       }
 
-      // const hostConfig = {
-      //   Binds: ['/var/run/docker.sock:/var/run/docker.sock'], // Mount the Docker socket
-      // };
+      const hostConfig = {
+        Binds: ['/var/run/docker.sock:/var/run/docker.sock'], // Mount the Docker socket
+      };
       // Create and start the container
       docker.createContainer(
         {
           Image: `${containerName}:v1.0`, // Replace with your container image
           name: containerName,
           Env: Object.entries(envVariables).map(([name, value]) => `${name}=${value}`),
-          // HostConfig: hostConfig, // Add HostConfig with volume mount
+          HostConfig: hostConfig, // Add HostConfig with volume mount
         },
         (err, container) => {
           if (err) {
