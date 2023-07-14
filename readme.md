@@ -51,3 +51,17 @@ Experience this revolutionary extension today. Unleash the full potential of vir
 
 - Goto `bigbluebutton-streaming/`.
 - run `uninstall.sh`.
+
+## ⏳ Ready to Transform Your Online Teaching Experience?
+
+Discover a new era of online learning with HigherEdLab's BigBlueButton hosting service. 
+
+With features ranging from crystal-clear HD video learning to interactive tools such as chat, poll, and presentations, we ensure that your virtual classrooms emulate the dynamic environment of physical ones.
+
+Enjoy the benefits of AI with ChatGPT-powered quizzes and transcriptions that enhance the learning experience. With HigherEdLab, you can customize your virtual learning space with your own domain, logo, and colors to align with your institution's brand identity.
+
+We also offer advanced user management, seamless integration options, and comprehensive analytics to give you complete control over your teaching platform.
+
+Ready to embrace the next level of digital education?
+
+**[Sign Up]**(https://higheredlab.com) Now for HigherEdLab's BigBlueButton Hosting Service and transform the way you teach online.
