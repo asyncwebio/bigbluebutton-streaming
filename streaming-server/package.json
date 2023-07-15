@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Stream bbb meeting",
   "scripts": {
-    "start": "node app.js",
+    "start": "sudo node app.js",
     "dev": "node app.js"
   },
   "keywords": [
