@@ -164,9 +164,7 @@ if [[ $version == "2.6.10" ]]; then
        echo "Error: Failed to restart BigBlueButton"
        exit 1
     fi
-    
-    sudo usermod -aG docker $USER
-    newgrp docker
+
     
 else
     echo "Please use BigBlueButton 2.6.10"
