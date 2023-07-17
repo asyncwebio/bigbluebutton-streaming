@@ -23,7 +23,7 @@ fi
 
         # Set ownership of copied files to the current user
         
-        sudo chown -R $current_user:$current_user /usr/share/meteor/bundle
+         sudo chown -R $current_user:$current_user /usr/share/meteor/bundle
 
         if sudo bbb-conf --restart; then
           echo "BigBlueButton restarted"

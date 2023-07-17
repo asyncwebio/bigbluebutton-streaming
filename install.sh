@@ -7,8 +7,6 @@ if [[ $EUID -eq 0 ]]; then
     exit 1
 fi
 
-
-
 # Get the BigBlueButton version from the release file
 version=$(grep -oP 'BIGBLUEBUTTON_RELEASE=\K[\d.]+' /etc/bigbluebutton/bigbluebutton-release)
 
@@ -28,13 +26,13 @@ if [[ $version == "2.6.10" ]]; then
 
     # Check if .env file exists
     if [[ -f .env ]]; then
-      # Overwrite existing environment variables if they exist
-    sed -i -E "s~^(BBB_URL=).*~\1${BBB_URL}~" .env
-    sed -i -E "s~^(BBB_SECRET=).*~\1${BBB_SECRET}~" .env
+        # Overwrite existing environment variables if they exist
+        sed -i -E "s~^(BBB_URL=).*~\1${BBB_URL}~" .env
+        sed -i -E "s~^(BBB_SECRET=).*~\1${BBB_SECRET}~" .env
     else
-    # Create new .env file
-    echo "BBB_URL=${BBB_URL}" >> .env
-    echo "BBB_SECRET=${BBB_SECRET}" >> .env
+        # Create new .env file
+        echo "BBB_URL=${BBB_URL}" >> .env
+        echo "BBB_SECRET=${BBB_SECRET}" >> .env
     fi
 
     cat .env
@@ -47,20 +45,19 @@ if [[ $version == "2.6.10" ]]; then
         sudo cp -R /usr/share/meteor/bundle /usr/share/meteor/bbb-html5-original || { echo "Error: Failed to copy bundle"; exit 1; }
 
         # Set ownership of copied files to the current user
-        
         sudo chown -R $current_user:$current_user /usr/share/meteor/bbb-html5-original
     else
         echo "bbb-html5-original folder already exists. Skipping copy and ownership changes."
     fi
     
-        # Navigate to src/bigbluebutton-html5 directory
+    # Navigate to src/bigbluebutton-html5 directory
     cd src/bigbluebutton-html5
 
     if npm install --legacy-peer-deps; then
-      echo "Packages installed successfully"
+        echo "Packages installed successfully"
     else 
-      echo "Error:Failed install packages"
-      exit 1
+        echo "Error: Failed to install packages"
+        exit 1
     fi
 
     # Check if Meteor is installed
@@ -70,6 +67,20 @@ if [[ $version == "2.6.10" ]]; then
         curl https://install.meteor.com/ | sh
     else
         echo "Meteor is already installed"
+    fi
+
+    if sudo rm "$(pwd)"/private/config/settings.yml; then 
+      echo "settings.yml removed successfully"
+    else
+      echo "Error: Failed to remove settings.yml"
+      exit 1
+    fi
+
+    if cp /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml "$(pwd)"/private/config/; then
+      echo "Successfully copied settings.yml"
+    else
+     echo "Error: Failed to copy settings.yml" 
+     exit 1
     fi
     
     # Create build folder if it doesn't exist
@@ -88,11 +99,13 @@ if [[ $version == "2.6.10" ]]; then
     
     cd ../../
 
+    
+
     if sudo tar -xzvf "$(pwd)"/build/*.tar.gz -C /usr/share/meteor; then
-      echo "files are copied to meteor"
+        echo "Files are copied to meteor"
     else
-       echo "Error: Failed copy files to meteor"
-       exit 1
+        echo "Error: Failed to copy files to meteor"
+        exit 1
     fi
 
 
@@ -119,14 +132,14 @@ if [[ $version == "2.6.10" ]]; then
     cd "$(pwd)"/streaming-server
 
     # Install packages
-    if  npm install; then
+    if npm install; then
         echo "Packages installed successfully"
     else
         echo "Error: Failed to install packages"
         exit 1
     fi
 
-     # Copy streaming.nginx file to /usr/share/bigbluebutton/nginx
+    # Copy streaming.nginx file to /usr/share/bigbluebutton/nginx
     sudo cp streaming.nginx /usr/share/bigbluebutton/nginx || { echo "Error: Failed to copy streaming.nginx"; exit 1; }
 
     # Reload Nginx server
@@ -148,8 +161,6 @@ if [[ $version == "2.6.10" ]]; then
     # Install PM2
     sudo npm install -g pm2
 
-    
-
     # Run npm start command with PM2
     if pm2 start npm --name "bbb-streaming" -- start; then
         echo "streaming-server started successfully"
@@ -159,13 +170,13 @@ if [[ $version == "2.6.10" ]]; then
     fi
 
     if sudo bbb-conf --restart; then
-      echo "BigBlueButton restarted"
+        echo "BigBlueButton restarted"
     else
-       echo "Error: Failed to restart BigBlueButton"
-       exit 1
+        echo "Error: Failed to restart BigBlueButton"
+        exit 1
     fi
-
-    
+        
 else
     echo "Please use BigBlueButton 2.6.10"
+    exit 1
 fi
