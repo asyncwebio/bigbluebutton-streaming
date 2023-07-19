@@ -80,7 +80,7 @@ app.post('/bot/start', async (req, res) => {
         const containerId = runningContainer.Id;
         const containerName = runningContainer.Names[0].replace('/', '');
         console.error(`Container '${containerName}' with ID '${containerId}' is already running`);
-        return res.status(500).json({ error: `Container '${containerName}' with ID '${containerId}' is already streaming. You can stream when that streaming ends.` });
+        return res.status(500).json({ error: `Another meeting is already streaming. You would be able to stream once that stream ends.` });
       }
 
       const hostConfig = {

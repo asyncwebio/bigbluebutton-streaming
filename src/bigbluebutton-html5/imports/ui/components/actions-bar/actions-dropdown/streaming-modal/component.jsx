@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { withModalMounter } from '/imports/ui/components/common/modal/service';
-import { defineMessages, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import Settings from '/imports/ui/services/settings';
 import Styled from './styles';
 import { startStreaming } from './service';
@@ -25,6 +24,17 @@ class StreamingModal extends Component {
     this.startStreamingHandler = this.startStreamingHandler.bind(this);
   }
 
+
+  handleChangeInput(ev) {
+    const { name, value } = ev.target
+
+    this.setState({
+      ...this.state,
+      [name]: value,
+      errorMsg: ""
+    })
+
+  }
 
   async startStreamingHandler() {
     const {
@@ -82,20 +92,6 @@ class StreamingModal extends Component {
     }
 
   }
-
-
-
-  handleChangeInput(ev) {
-    const { name, value } = ev.target
-
-    this.setState({
-      ...this.state,
-      [name]: value,
-      errorMsg: ""
-    })
-
-  }
-
 
   renderUrlError() {
 
