@@ -47,6 +47,7 @@ app.post('/bot/start', async (req, res) => {
         'Content-Type': 'application/json'
       }
     }
+
     const meetingInfo = await axios.get(constructUrl(bbb, 'getMeetingInfo', params), config)
 
     const info = xmlToJson(meetingInfo.data)
@@ -84,6 +85,7 @@ app.post('/bot/start', async (req, res) => {
 
       const hostConfig = {
         Binds: ['/var/run/docker.sock:/var/run/docker.sock'], // Mount the Docker socket
+        AutoRemove: true,
       };
       // Create and start the container
       docker.createContainer(
@@ -91,6 +93,7 @@ app.post('/bot/start', async (req, res) => {
           Image: `${containerName}:v1.0`, // Replace with your container image
           name: containerName,
           Env: Object.entries(envVariables).map(([name, value]) => `${name}=${value}`),
+          Tty: false,
           HostConfig: hostConfig, // Add HostConfig with volume mount
         },
         (err, container) => {
@@ -105,7 +108,7 @@ app.post('/bot/start', async (req, res) => {
               return res.status(500).json({ error: 'Internal Server Error' });
             }
 
-            console.log('Container started successfully');
+            console.log('Stream started successfully');
             return res.status(200).json({ message: 'Stream started successfully' });
           });
         }
@@ -135,6 +138,6 @@ app.get('/bot/stop', async (req, res) => {
   }
 })
 
-const server = app.listen(3000, () => {
-  console.log("Server running on port 3000");
+const server = app.listen(4500, () => {
+  console.log("Server running on port 4500");
 })

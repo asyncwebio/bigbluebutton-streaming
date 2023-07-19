@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { withModalMounter } from '/imports/ui/components/common/modal/service';
 import { defineMessages, injectIntl } from 'react-intl';
 import Settings from '/imports/ui/services/settings';
@@ -35,14 +36,21 @@ class StreamingModal extends Component {
     if (!streamUrl && !streamKey) {
       this.setState({
         ...this.state,
-        errorMsg: "Both input fields are required"
+        errorMsg: "RTMP URL & Stream Key is required"
       })
     } else if (!streamUrl) {
       this.setState({
         ...this.state,
         errorMsg: "RTMP URL is required"
       })
-    } else if (!streamKey) {
+    } else if (!streamUrl.startsWith('rtmp://')) {
+      this.setState({
+        ...this.state,
+        errorMsg: "Invalid RTMP URL"
+      })
+
+    }
+    else if (!streamKey) {
       this.setState({
         ...this.state,
         errorMsg: "Stream Key is required"
@@ -53,6 +61,7 @@ class StreamingModal extends Component {
           ...this.state,
           isLoading: true
         })
+
         const response = await startStreaming(this.state.streamUrl, this.state.streamKey)
         if (response.status == 200) {
           handleStreamingStatus()

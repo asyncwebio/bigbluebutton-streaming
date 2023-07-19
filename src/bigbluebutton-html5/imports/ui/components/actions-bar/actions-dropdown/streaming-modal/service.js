@@ -20,7 +20,6 @@ const startStreaming = async (streamUrl, streamKey) => {
       rtmpUrl: `${streamUrl}/${streamKey}`
     };
 
-    console.log(URL)
 
     const response = await axios.post(`${URL}/bot/start`, data, config);
 

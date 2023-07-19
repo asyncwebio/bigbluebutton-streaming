@@ -4,11 +4,8 @@ const child_process = require('child_process');
 const bbb = require('bigbluebutton-js');
 var kill = require('tree-kill');
 const dotenv = require("dotenv");
-const Docker = require('dockerode')
-
 
 dotenv.config();
-const docker = new Docker({ socketPath: '/var/run/docker.sock' });
 
 
 // variables
@@ -33,6 +30,7 @@ var options = {
     headless: false,
     args: [
         '--disable-infobars',
+        '--autoplay-policy=no-user-gesture-required',
         '--no-sandbox',
         '--shm-size=2gb',
         '--disable-dev-shm-usage',
@@ -89,7 +87,6 @@ async function main() {
                     newPage.on('close', async () => {
                         // Perform actions when the page is closed
                         console.log('Browser tab closed');
-                        removeContainer();
                         // Add your actions here
                         // ...
                     });
@@ -107,20 +104,6 @@ async function main() {
 
             console.log("meeting started")
 
-            function removeContainer() {
-                const container = docker.getContainer(process.env.IMAGE_NAME);
-
-                container.remove({ force: true }, function (err) {
-                    if (err) {
-                        console.log('Error removing container:', err);
-                        return res.status(500).json({ error: 'Internal Server Error' });
-                    }
-
-                    console.log('Container removed successfully');
-                    return res.status(200).json({ message: 'Container removed successfully' });
-                });
-            }
-
             //  ffmpeg screen record start
             const ls = child_process.spawn('sh ',
                 ['/usr/src/app/start-streaming.sh', ' ', `${RTMP_URL}`, ' ', `${disp_num}`],
@@ -136,13 +119,9 @@ async function main() {
 
             ls.on('close', (code) => {
                 console.log("calling remove container")
-                removeContainer();
                 console.log(`child process exited with code ${code}`);
 
             });
-
-
-
 
 
             process.once("SIGINT", function (code) {
@@ -151,29 +130,24 @@ async function main() {
                 browser.close
                 xvfb.stopSync()
                 console.log("SIGINT received...");
-                removeContainer();
             });
 
 
 
             await page.waitForSelector('[data-test="meetingEndedModalTitle"]', { timeout: 0 });
             console.log("meeting ended")
-            removeContainer();
             kill(ls.pid)
 
         } catch (err) {
             console.log("Error:", err)
-            removeContainer();
         } finally {
             page.close && await page.close()
             browser.close && await browser.close()
             xvfb.stopSync()
-            removeContainer();
 
         }
     } catch (error) {
         console.error(error)
-        removeContainer();
     }
 
 }
