@@ -1,5 +1,5 @@
 <div align="center">
-   <img alt="bbb-streaming" width="250" src="https://higheredlab.com/wp-content/uploads/hel-logo.png">
+ <a href="https://higheredlab.com/" target="_blank"> <img alt="bbb-streaming" width="250" src="/static/hel-general-logo.png"> </a>
 </div>
 <h1 align="center">BigBlueButton Streaming</h1>
 <p align="center">BigBlueButton Streaming - Your free, open-source solution to expand your virtual classrooms to thousands of learners globally. Stream live on YouTube, Facebook, Vimeo, or any RTMP server right from BigBlueButton. No more user limit - teach without boundaries.</p>
@@ -83,7 +83,7 @@ bash uninstall.sh
 
 <br/><br/>
 
-## 🚀 Ready to Transform Your Online Teaching Experience?
+## 🚀 <a href="https://higheredlab.com" target="_blank">Ready to Transform Your Online Teaching Experience?</a>
 
 Discover a new era of online learning with HigherEdLab's BigBlueButton hosting service. 
 
