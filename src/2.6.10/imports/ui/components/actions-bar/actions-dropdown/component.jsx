@@ -13,7 +13,7 @@ import Styled from './styles';
 import { colorPrimary } from '/imports/ui/stylesheets/styled-components/palette';
 import { PANELS, ACTIONS, LAYOUT_TYPE } from '../../layout/enums';
 import { isPresentationEnabled } from '/imports/ui/services/features';
-import {isLayoutsEnabled} from '/imports/ui/services/features';
+import { isLayoutsEnabled } from '/imports/ui/services/features';
 import { stopStreaming } from './streaming-modal/service';
 
 const propTypes = {
@@ -107,8 +107,8 @@ class ActionsDropdown extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state={
-      isStreaming:false
+    this.state = {
+      isStreaming: false
     }
 
     this.presentationItemId = _.uniqueId('action-item-');
@@ -137,39 +137,39 @@ class ActionsDropdown extends PureComponent {
     mountModal(<ExternalVideoModal />);
   }
 
-  handleStreamingStatus(){
-    
+  handleStreamingStatus() {
+
     this.setState({
       ...this.state,
-      isStreaming:true,
+      isStreaming: true,
     })
 
-}  
-
-  handleStreamingVideoClick(){
-    const {mountModal} = this.props;
-    mountModal(<Streaming handleStreamingStatus={this.handleStreamingStatus}/>)
   }
 
-  
+  handleStreamingVideoClick() {
+    const { mountModal } = this.props;
+    mountModal(<Streaming handleStreamingStatus={this.handleStreamingStatus} />)
+  }
 
-  async handleStopStreaming(){
+
+
+  async handleStopStreaming() {
     try {
-      const response= await stopStreaming()
-      
-      if(response.status == 200){
-       
+      const response = await stopStreaming()
+
+      if (response.status == 200) {
+
         this.setState({
           ...this.state,
-          isStreaming:false,
+          isStreaming: false,
         })
       }
-     
-      } catch (error) {
-        console.error(error)
-      } 
-   
-  }   
+
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
 
   getAvailableActions() {
     const {
@@ -201,23 +201,23 @@ class ActionsDropdown extends PureComponent {
 
     const actions = [];
 
-    if (amIPresenter && !this.state.isStreaming ) {
+    if (amIPresenter && !this.state.isStreaming) {
       actions.push({
         icon: "external-video",
         dataTest: "streaming",
         label: "Start Streaming",
         key: "streaming",
-        onClick:  this.handleStreamingVideoClick,
+        onClick: this.handleStreamingVideoClick,
       })
     }
 
-    if (amIPresenter && this.state.isStreaming ) {
+    if (amIPresenter && this.state.isStreaming) {
       actions.push({
         icon: "external-video_off",
         dataTest: "streaming",
         label: "Stop Streaming",
         key: "streaming",
-        onClick:  this.handleStopStreaming,
+        onClick: this.handleStopStreaming,
       })
     }
 
@@ -232,7 +232,7 @@ class ActionsDropdown extends PureComponent {
       })
     }
 
-    
+
 
     if (amIPresenter && isPollingEnabled) {
       actions.push({
@@ -297,7 +297,7 @@ class ActionsDropdown extends PureComponent {
       });
     }
 
-    if (isLayoutsEnabled()){
+    if (isLayoutsEnabled()) {
       actions.push({
         icon: 'send',
         label: intl.formatMessage(intlMessages.layoutModal),
@@ -306,7 +306,7 @@ class ActionsDropdown extends PureComponent {
         dataTest: 'layoutModal',
       });
     }
-    
+
     return actions;
   }
 
