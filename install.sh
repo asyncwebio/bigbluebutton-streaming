@@ -11,7 +11,7 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 # Get the BigBlueButton version from the release file
-version=$(grep -oP 'BIGBLUEBUTTON_RELEASE=\K[\d.]+' /etc/bigbluebutton/bigbluebutton-release)
+version=$(grep -oP 'BIGBLUEBUTTON_RELEASE=\K.*' /etc/bigbluebutton/bigbluebutton-release)
 
 # Print the version
 echo "BigBlueButton version: $version"
