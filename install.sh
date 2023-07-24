@@ -79,6 +79,9 @@ if [[ " ${available_versions[@]} " =~ " ${version} " ]]; then
       exit 1
     fi
 
+    # Install missing npm modules
+    npm install --save @material-ui/core
+
     if cp /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml "$(pwd)"/private/config/; then
       echo "Successfully copied settings.yml"
     else
