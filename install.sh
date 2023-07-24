@@ -72,15 +72,17 @@ if [[ " ${available_versions[@]} " =~ " ${version} " ]]; then
         echo "Meteor is already installed"
     fi
 
-    if sudo rm "$(pwd)"/private/config/settings.yml; then 
-      echo "settings.yml removed successfully"
+    # Check if settings.yml exists before trying to remove it
+    if [[ -f "$(pwd)"/private/config/settings.yml ]]; then 
+        if sudo rm "$(pwd)"/private/config/settings.yml; then 
+            echo "settings.yml removed successfully"
+        else
+            echo "Error: Failed to remove settings.yml"
+            exit 1
+        fi
     else
-      echo "Error: Failed to remove settings.yml"
-      exit 1
+        echo "settings.yml does not exist. Skipping removal."
     fi
-
-    # Install missing npm modules
-    npm install --save @material-ui/core
 
     if cp /usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml "$(pwd)"/private/config/; then
       echo "Successfully copied settings.yml"
