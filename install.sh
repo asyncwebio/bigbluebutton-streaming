@@ -63,6 +63,14 @@ if [[ " ${available_versions[@]} " =~ " ${version} " ]]; then
         exit 1
     fi
 
+    # Install missing npm modules
+    if npm install --save @material-ui/core --legacy-peer-deps; then
+      echo "Missing Packages installed successfully"
+    else
+      echo "Error: Failed to install Missing packages"
+      exit 1
+    fi
+
     # Check if Meteor is installed
     if ! command -v meteor &> /dev/null; then
         # Meteor is not installed, so install it
