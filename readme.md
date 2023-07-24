@@ -45,11 +45,12 @@ The requirement to install this software is BigBlueButton should be installed.
 
 **Minimum environment requirements**
 
-- BigBlueButton version 2.6.10 is required as a minimum for the installation.
+- BigBlueButton versions ['2.6.10'].
 - Docker must be installed on the system to manage containerization and deployment of     BigBlueButton.
 - A properly configured and functioning TURN server is necessary for real-time communication and media relay.
 
 <br/><br/>
+
 
 ## 📦 Installation
 
@@ -80,6 +81,28 @@ cd bigbluebutton-streaming
 
 bash uninstall.sh
 ```
+
+<br/><br/>
+
+## 📋 How it works
+
+1. **Node.js App:** The Node.js app start streaming container, serving as a controller for streaming BigBlueButton meetings.
+
+2. **REST API:** The app exposes a REST API to receive requests for starting and stopping streaming.
+
+3. **Environment Variables:** Sensitive data, such as the BigBlueButton URL, secret, and other configurations, are stored in environment variables loaded from a .env file.
+
+4. **Puppeteer Integration:** Puppeteer is utilized to launch a headless Chrome browser, enabling programmatic interaction with the BigBlueButton meeting UI. 
+
+5. **Virtual Display:** Xvfb creates a virtual display for Chrome, allowing it to run without a physical display server.
+
+6. **Joining the Meeting:** The app configures Puppeteer to join the BigBlueButton meeting as a viewer with specific settings, such as listen-only mode and element visibility.
+
+7. **Screen Recording:** A child process invokes ffmpeg to record the meeting screen and stream it to a specified RTMP server.
+
+8. **Stop Streaming**: The app waits for the stop streaming or meeting to end and stops the, streaming, ffmpeg process, finalizing the streaming process.
+<br /> <br />
+<img alt="bbb-streaming"  src="/static/bigbluebutton-streaming-sequence.png"/>
 
 <br/><br/>
 

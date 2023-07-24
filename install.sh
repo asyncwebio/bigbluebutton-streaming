@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Define an array of available versions
+available_versions=("2.6.10" "2.7.0-beta.1" )  # Add more versions as needed
+
 # Check if the user is root
 if [[ $EUID -eq 0 ]]; then
     echo "Error: This script should not be run as root."
@@ -14,8 +17,8 @@ version=$(grep -oP 'BIGBLUEBUTTON_RELEASE=\K[\d.]+' /etc/bigbluebutton/bigbluebu
 echo "BigBlueButton version: $version"
 
 # Conditional check
-if [[ $version == "2.6.10" ]]; then
-    echo "Version is 2.6.10"
+if [[ " ${available_versions[@]} " =~ " ${version} " ]]; then
+    echo "Version is $version"
 
     cd streaming-server/
     echo "$(pwd)"
@@ -51,7 +54,7 @@ if [[ $version == "2.6.10" ]]; then
     fi
     
     # Navigate to src/bigbluebutton-html5 directory
-    cd src/bigbluebutton-html5
+    cd src/"${version}"
 
     if npm install --legacy-peer-deps; then
         echo "Packages installed successfully"
@@ -177,6 +180,6 @@ if [[ $version == "2.6.10" ]]; then
     fi
         
 else
-    echo "Please use BigBlueButton 2.6.10"
+    echo "Please use one of the following BigBlueButton versions: ${available_versions[@]}"
     exit 1
 fi
