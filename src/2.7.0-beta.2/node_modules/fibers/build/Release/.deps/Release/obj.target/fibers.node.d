@@ -1,0 +1,1 @@
+cmd_Release/obj.target/fibers.node := g++ -o Release/obj.target/fibers.node -shared -pthread -rdynamic -m64 -pthread  -Wl,-soname=fibers.node -Wl,--start-group Release/obj.target/fibers/src/fibers.o Release/obj.target/fibers/src/coroutine.o Release/obj.target/fibers/src/libcoro/coro.o -Wl,--end-group 

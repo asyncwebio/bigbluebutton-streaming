@@ -1,0 +1,1 @@
+{"version":3,"file":"createShapes.d.ts","sourceRoot":"","sources":["../../../../src/state/commands/createShapes/createShapes.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,kBAAkB,CAAA;AACjD,OAAO,KAAK,EAAS,SAAS,EAAE,OAAO,EAAE,aAAa,EAAE,MAAM,QAAQ,CAAA;AAEtE,wBAAgB,YAAY,CAC1B,GAAG,EAAE,SAAS,EACd,MAAM,EAAE,OAAO,EAAE,EACjB,QAAQ,GAAE,SAAS,EAAO,GACzB,aAAa,CAoDf"}

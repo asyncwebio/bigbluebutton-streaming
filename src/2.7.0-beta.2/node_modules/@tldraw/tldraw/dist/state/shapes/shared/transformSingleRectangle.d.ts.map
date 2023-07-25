@@ -1,0 +1,1 @@
+{"version":3,"file":"transformSingleRectangle.d.ts","sourceRoot":"","sources":["../../../../src/state/shapes/shared/transformSingleRectangle.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,QAAQ,EAAE,OAAO,EAAE,MAAM,cAAc,CAAA;AAGrD;;;;GAIG;AACH,wBAAgB,wBAAwB,CAAC,CAAC,SAAS,OAAO,GAAG;IAAE,IAAI,EAAE,MAAM,EAAE,CAAA;CAAE,EAC7E,KAAK,EAAE,CAAC,EACR,MAAM,EAAE,QAAQ;;;EAMjB"}

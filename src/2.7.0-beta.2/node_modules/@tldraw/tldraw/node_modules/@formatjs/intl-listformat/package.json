@@ -1,0 +1,35 @@
+{
+  "name": "@formatjs/intl-listformat",
+  "version": "7.1.7",
+  "description": "Formats JS list in a i18n-safe way",
+  "keywords": [
+    "intl",
+    "i18n",
+    "list",
+    "format",
+    "formatjs",
+    "listformat"
+  ],
+  "author": "Long Ho <holevietlong@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/formatjs/formatjs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:formatjs/formatjs.git"
+  },
+  "dependencies": {
+    "@formatjs/ecma402-abstract": "1.14.3",
+    "@formatjs/intl-localematcher": "0.2.32",
+    "tslib": "^2.4.0"
+  },
+  "devDependencies": {
+    "@formatjs/intl-getcanonicallocales": "2.0.5",
+    "@formatjs/intl-locale": "3.0.11"
+  },
+  "main": "index.js",
+  "types": "index.d.ts",
+  "homepage": "https://github.com/formatjs/formatjs",
+  "license": "MIT",
+  "gitHead": "a7842673d8ad205171ad7c8cb8bb2f318b427c0c"
+}

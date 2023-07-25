@@ -1,0 +1,1 @@
+{"version":3,"file":"toggleShapesProp.d.ts","sourceRoot":"","sources":["../../../../src/state/commands/toggleShapesProp/toggleShapesProp.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,QAAQ,CAAA;AACvC,OAAO,KAAK,EAAE,OAAO,EAAE,aAAa,EAAE,MAAM,QAAQ,CAAA;AAEpD,wBAAgB,eAAe,CAAC,GAAG,EAAE,SAAS,EAAE,GAAG,EAAE,MAAM,EAAE,EAAE,IAAI,EAAE,MAAM,OAAO,GAAG,aAAa,CAgDjG"}

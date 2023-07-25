@@ -1,0 +1,1 @@
+{"version":3,"file":"deletePage.d.ts","sourceRoot":"","sources":["../../../../src/state/commands/deletePage/deletePage.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,kBAAkB,CAAA;AACjD,OAAO,KAAK,EAAE,aAAa,EAAE,MAAM,QAAQ,CAAA;AAE3C,wBAAgB,UAAU,CAAC,GAAG,EAAE,SAAS,EAAE,MAAM,EAAE,MAAM,GAAG,aAAa,CAmDxE"}
