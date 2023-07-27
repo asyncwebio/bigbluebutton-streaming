@@ -28,10 +28,10 @@ public:
     #
     clientTitle: BigBlueButton
     appName: BigBlueButton HTML5 Client
-    bbbServerVersion: HTML5_FULL_BBB_VERSION
+    bbbServerVersion: 2.6.10
     displayBbbServerVersion: true
     copyright: '©2023 BigBlueButton Inc.'
-    html5ClientBuild: HTML5_CLIENT_VERSION
+    html5ClientBuild: 652
     helpLink: https://bigbluebutton.org/html5/
     delayForUnmountOfSharedNote: 120000
     bbbTabletApp:
@@ -90,13 +90,13 @@ public:
       mobile: false
       language:
         available:
-        # - de-DE
+          # - de-DE
           - en-US
           - es-ES
           - fr-FR
-        # - hi-ID
-        # - it-IT
-        # - ja-JP
+          # - hi-ID
+          # - it-IT
+          # - ja-JP
           - pt-BR
         # - ru-RU
         # - zh-CN
@@ -117,7 +117,7 @@ public:
       threshold: -50
       duration: 4000
     remainingTimeThreshold: 30
-    remainingTimeAlertThresholdArray: [1,5]
+    remainingTimeAlertThresholdArray: [1, 5]
     enableDebugWindow: true
     # Warning: increasing the limit of breakout rooms per meeting
     # can generate excessive overhead to the server. We recommend
@@ -264,7 +264,7 @@ public:
   externalVideoPlayer:
     enabled: true
   kurento:
-    wsUrl: HOST
+    wsUrl: wss://session3.odinschool.com/bbb-webrtc-sfu
     cameraWsOptions:
       # Valid for video-provider. Time (ms) before its WS connection times out
       # and tries to reconnect.
@@ -555,7 +555,7 @@ public:
     showPushLayoutButton: true
     showPushLayoutToggle: true
   pads:
-    url: ETHERPAD_HOST
+    url: https://session3.odinschool.com/pad
     cookie:
       path: /
       sameSite: None
@@ -627,7 +627,7 @@ public:
     # Number of reconnection attempts of the signaling websocket, before
     # showing to the user there's an audio error.
     audioReconnectionAttempts: 3
-    sipjsHackViaWs: false
+    sipjsHackViaWs: true
     # sipjsAllowMdns: whether mDNS candidates should be allowed in local SDPs.
     # Default is false since FreeSWITCH doesn't resolve mDNS by default.
     sipjsAllowMdns: false
