@@ -1,0 +1,1 @@
+{"version":3,"file":"DMItem.d.ts","sourceRoot":"","sources":["../../../../src/components/Primitives/DropdownMenu/DMItem.tsx"],"names":[],"mappings":"AAEA,OAAO,EAAa,cAAc,EAAE,MAAM,kCAAkC,CAAA;AAE5E,wBAAgB,MAAM,CAAC,EACrB,QAAQ,EACR,EAAE,EACF,GAAG,IAAI,EACR,EAAE,cAAc,GAAG;IAAE,QAAQ,CAAC,EAAE,CAAC,KAAK,EAAE,KAAK,KAAK,IAAI,CAAC;IAAC,EAAE,CAAC,EAAE,MAAM,CAAA;CAAE,eAMrE"}

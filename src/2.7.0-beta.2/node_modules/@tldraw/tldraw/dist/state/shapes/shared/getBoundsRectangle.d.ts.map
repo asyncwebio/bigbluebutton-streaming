@@ -1,0 +1,1 @@
+{"version":3,"file":"getBoundsRectangle.d.ts","sourceRoot":"","sources":["../../../../src/state/shapes/shared/getBoundsRectangle.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,QAAQ,EAAE,OAAO,EAAS,MAAM,cAAc,CAAA;AAEvD;;;;GAIG;AACH,wBAAgB,kBAAkB,CAAC,CAAC,SAAS,OAAO,GAAG;IAAE,IAAI,EAAE,MAAM,EAAE,CAAA;CAAE,EACvE,KAAK,EAAE,CAAC,EACR,WAAW,EAAE,OAAO,CAAC,CAAC,EAAE,QAAQ,CAAC,YAelC"}

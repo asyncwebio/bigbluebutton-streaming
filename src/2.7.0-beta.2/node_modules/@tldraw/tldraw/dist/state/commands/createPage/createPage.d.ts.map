@@ -1,0 +1,1 @@
+{"version":3,"file":"createPage.d.ts","sourceRoot":"","sources":["../../../../src/state/commands/createPage/createPage.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,QAAQ,CAAA;AAEvC,OAAO,KAAK,EAAU,aAAa,EAAE,MAAM,QAAQ,CAAA;AAEnD,wBAAgB,UAAU,CACxB,GAAG,EAAE,SAAS,EACd,MAAM,EAAE,MAAM,EAAE,EAChB,MAAM,SAAmB,EACzB,QAAQ,SAAS,GAChB,aAAa,CA6Df"}

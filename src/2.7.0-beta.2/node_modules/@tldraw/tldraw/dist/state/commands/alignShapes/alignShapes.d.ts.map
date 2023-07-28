@@ -1,0 +1,1 @@
+{"version":3,"file":"alignShapes.d.ts","sourceRoot":"","sources":["../../../../src/state/commands/alignShapes/alignShapes.ts"],"names":[],"mappings":"AAGA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,kBAAkB,CAAA;AACjD,OAAO,EAAE,SAAS,EAAe,aAAa,EAAE,MAAM,QAAQ,CAAA;AAE9D,wBAAgB,WAAW,CAAC,GAAG,EAAE,SAAS,EAAE,GAAG,EAAE,MAAM,EAAE,EAAE,IAAI,EAAE,SAAS,GAAG,aAAa,CA8FzF"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"useCameraCss.d.ts","sourceRoot":"","sources":["../../src/hooks/useCameraCss.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAC9B,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,QAAQ,CAAA;AAEzC,wBAAgB,YAAY,CAC1B,QAAQ,EAAE,KAAK,CAAC,SAAS,CAAC,cAAc,CAAC,EACzC,YAAY,EAAE,KAAK,CAAC,YAAY,CAAC,cAAc,CAAC,EAChD,SAAS,EAAE,WAAW,QAqCvB"}
