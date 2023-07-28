@@ -71,17 +71,7 @@ bash install.sh
 
 <br/>
 
-### 📺 Demo
-
-<br/>
-
-<div>
-<video controls>
-  <source src="https://bbb1.asyncweb.io/recording/bigbluebutton-streaming-installation.mp4" type="video/mp4">
- 
-  Your browser does not support HTML5 video.
-</video>
-</div>
+[📺 Installation Demo](https://bbb1.asyncweb.io/recording/bigbluebutton-streaming-installation.mp4)
 
 <br/>
 <br/>
