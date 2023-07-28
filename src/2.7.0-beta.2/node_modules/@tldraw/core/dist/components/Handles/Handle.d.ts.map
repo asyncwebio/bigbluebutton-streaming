@@ -1,1 +1,0 @@
-{"version":3,"file":"Handle.d.ts","sourceRoot":"","sources":["../../../src/components/Handles/Handle.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAM9B,UAAU,WAAW;IACnB,EAAE,EAAE,MAAM,CAAA;IACV,KAAK,EAAE,MAAM,EAAE,CAAA;CAChB;AAED,iBAAS,OAAO,CAAC,EAAE,EAAE,EAAE,KAAK,EAAE,EAAE,WAAW,eAyB1C;AAED,eAAO,MAAM,MAAM,2CAAsB,CAAA"}
