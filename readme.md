@@ -71,7 +71,7 @@ bash install.sh
 
 <br/>
 
-[![Watch the Video](https://img.youtube.com/vi/your_video_id_here/maxresdefault.jpg)](https://youtu.be/tDFACHW9ANE)
+[![Watch the Video](https://img.youtube.com/vi/tDFACHW9ANE/maxresdefault.jpg)](https://youtu.be/tDFACHW9ANE)
 
 <br/>
 
