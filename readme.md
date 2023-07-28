@@ -70,6 +70,14 @@ bash install.sh
 > Make sure to stop streaming before Ending the BigBlueButton session.
 
 <br/>
+
+[![Watch the Video](https://img.youtube.com/vi/your_video_id_here/maxresdefault.jpg)](https://youtu.be/tDFACHW9ANE)
+
+<br/>
+
+[![Watch the installation demo]](https://bbb1.asyncweb.io/recording/bigbluebutton-streaming-installation.mp4)
+
+<br/>
 <br/>
 
 ## 🗑️ Uninstallation
@@ -84,23 +92,23 @@ bash uninstall.sh
 
 <br/><br/>
 
-## 📋 How it works
+## 🔎 How it works
 
-1. **Node.js App:** The Node.js app start streaming container, serving as a controller for streaming BigBlueButton meetings.
+1. 🚀 **Node.js App:** The Node.js app start streaming container, serving as a controller for streaming BigBlueButton meetings.
 
-2. **REST API:** The app exposes a REST API to receive requests for starting and stopping streaming.
+2. 📬 **REST API:** The app exposes a REST API to receive requests for starting and stopping streaming.
 
-3. **Environment Variables:** Sensitive data, such as the BigBlueButton URL, secret, and other configurations, are stored in environment variables loaded from a .env file.
+3. 🔑 **Environment Variables:** Sensitive data, such as the BigBlueButton URL, secret, and other configurations, are stored in environment variables loaded from a .env file.
 
-4. **Puppeteer Integration:** Puppeteer is utilized to launch a headless Chrome browser, enabling programmatic interaction with the BigBlueButton meeting UI. 
+4. 🔗 **Puppeteer Integration:** Puppeteer is utilized to launch a headless Chrome browser, enabling programmatic interaction with the BigBlueButton meeting UI. 
 
-5. **Virtual Display:** Xvfb creates a virtual display for Chrome, allowing it to run without a physical display server.
+5. 🖥️ **Virtual Display:** Xvfb creates a virtual display for Chrome, allowing it to run without a physical display server.
 
-6. **Joining the Meeting:** The app configures Puppeteer to join the BigBlueButton meeting as a viewer with specific settings, such as listen-only mode and element visibility.
+6. 🤝 **Joining the Meeting:** The app configures Puppeteer to join the BigBlueButton meeting as a viewer with specific settings, such as listen-only mode and element visibility.
 
-7. **Screen Recording:** A child process invokes ffmpeg to record the meeting screen and stream it to a specified RTMP server.
+7. 📼 **Screen Recording:** A child process invokes ffmpeg to record the meeting screen and stream it to a specified RTMP server.
 
-8. **Stop Streaming**: The app waits for the stop streaming or meeting to end and stops the, streaming, ffmpeg process, finalizing the streaming process.
+8. ⏹️ **Stop Streaming**: The app waits for the stop streaming or meeting to end and stops the, streaming, ffmpeg process, finalizing the streaming process.
 <br /> <br />
 <img alt="bbb-streaming"  src="/static/bigbluebutton-streaming-sequence.png"/>
 
