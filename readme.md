@@ -45,7 +45,7 @@ The requirement to install this software is BigBlueButton should be installed.
 
 **Minimum environment requirements**
 
-- BigBlueButton versions ['2.6.10'].
+- BigBlueButton versions ['2.6.10' '2.7.0-beta.2'].
 - Docker must be installed on the system to manage containerization and deployment of     BigBlueButton.
 - A properly configured and functioning TURN server is necessary for real-time communication and media relay.
 
