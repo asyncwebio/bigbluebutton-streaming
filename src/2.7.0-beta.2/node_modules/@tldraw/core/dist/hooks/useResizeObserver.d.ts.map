@@ -1,1 +1,0 @@
-{"version":3,"file":"useResizeObserver.d.ts","sourceRoot":"","sources":["../../src/hooks/useResizeObserver.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAE9B,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,QAAQ,CAAA;AAwBtC,wBAAgB,iBAAiB,CAAC,CAAC,SAAS,WAAW,EACrD,GAAG,EAAE,KAAK,CAAC,SAAS,CAAC,CAAC,CAAC,EACvB,cAAc,EAAE,CAAC,MAAM,EAAE,QAAQ,KAAK,IAAI,QAoE3C"}

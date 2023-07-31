@@ -14,6 +14,8 @@ import { uniqueId } from '/imports/utils/string-utils';
 import { isPresentationEnabled, isLayoutsEnabled } from '/imports/ui/services/features';
 import VideoPreviewContainer from '/imports/ui/components/video-preview/container';
 import { screenshareHasEnded } from '/imports/ui/components/screenshare/service';
+import StreamingModal from '/imports/ui/components/actions-bar/actions-dropdown/streaming-modal/container';
+import { stopStreaming } from './streaming-modal/service';
 
 const propTypes = {
   amIPresenter: PropTypes.bool.isRequired,
@@ -131,9 +133,11 @@ class ActionsDropdown extends PureComponent {
       isRandomUserSelectModalOpen: false,
       isLayoutModalOpen: false,
       isCameraAsContentModalOpen: false,
+      isStreamingModalOpen: false,
+      isStreaming: false,
     };
 
-    this.handleExternalVideoClick = this.handleExternalVideoClick.bind(this);
+
     this.makePresentationItems = this.makePresentationItems.bind(this);
     this.setExternalVideoModalIsOpen = this.setExternalVideoModalIsOpen.bind(this);
     this.setRandomUserSelectModalIsOpen = this.setRandomUserSelectModalIsOpen.bind(this);
@@ -142,6 +146,10 @@ class ActionsDropdown extends PureComponent {
     this.setPropsToPassModal = this.setPropsToPassModal.bind(this);
     this.setForceOpen = this.setForceOpen.bind(this);
     this.handleTimerClick = this.handleTimerClick.bind(this);
+    this.handleStreamingClick = this.handleStreamingClick.bind(this);
+    this.setStreamingModalIsOpen = this.setStreamingModalIsOpen.bind(this);
+    this.handleStreamingStatus = this.handleStreamingStatus.bind(this);
+    this.handleStopStreaming = this.handleStopStreaming.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -152,8 +160,35 @@ class ActionsDropdown extends PureComponent {
     }
   }
 
-  handleExternalVideoClick() {
-    this.setExternalVideoModalIsOpen(true);
+  handleStreamingClick() {
+    this.setStreamingModalIsOpen(true);
+  }
+
+  handleStreamingStatus() {
+
+    this.setState({
+      ...this.state,
+      isStreaming: true,
+    })
+
+  }
+
+  async handleStopStreaming() {
+    try {
+      const response = await stopStreaming()
+
+      if (response.status == 200) {
+
+        this.setState({
+          ...this.state,
+          isStreaming: false,
+        })
+      }
+
+    } catch (error) {
+      console.error(error)
+    }
+
   }
 
   handleTimerClick() {
@@ -193,6 +228,26 @@ class ActionsDropdown extends PureComponent {
     const { formatMessage } = intl;
 
     const actions = [];
+
+    if (amIPresenter && !this.state.isStreaming) {
+      actions.push({
+        icon: "external-video",
+        dataTest: "streaming",
+        label: "Start Streaming",
+        key: "streaming",
+        onClick: this.handleStreamingClick,
+      })
+    }
+
+    if (amIPresenter && this.state.isStreaming) {
+      actions.push({
+        icon: "external-video_off",
+        dataTest: "streaming",
+        label: "Stop Streaming",
+        key: "streaming",
+        onClick: this.handleStopStreaming,
+      })
+    }
 
     if (amIPresenter && isPresentationEnabled()) {
       actions.push({
@@ -290,9 +345,9 @@ class ActionsDropdown extends PureComponent {
         onClick: hasCameraAsContent
           ? screenshareHasEnded
           : () => {
-              screenshareHasEnded();
-              this.setCameraAsContentModalIsOpen(true);
-            },
+            screenshareHasEnded();
+            this.setCameraAsContentModalIsOpen(true);
+          },
         dataTest: 'shareCameraAsContent',
       });
     }
@@ -328,6 +383,10 @@ class ActionsDropdown extends PureComponent {
         };
       });
     return presentationItemElements;
+  }
+
+  setStreamingModalIsOpen(value) {
+    this.setState({ isStreamingModalOpen: value });
   }
 
   setExternalVideoModalIsOpen(value) {
@@ -384,6 +443,7 @@ class ActionsDropdown extends PureComponent {
       isRandomUserSelectModalOpen,
       isLayoutModalOpen,
       isCameraAsContentModalOpen,
+      isStreamingModalOpen,
     } = this.state;
 
     const availableActions = this.getAvailableActions();
@@ -429,6 +489,26 @@ class ActionsDropdown extends PureComponent {
             transformOrigin: { vertical: 'bottom', horizontal: isRTL ? 'right' : 'left' },
           }}
         />
+        {
+          this.renderModal(
+            isStreamingModalOpen,
+            this.setStreamingModalIsOpen,
+            'high',
+            () => (<StreamingModal
+              handleStreamingStatus={this.handleStreamingStatus}
+              {...{
+                callbackToClose: () => {
+                  this.setPropsToPassModal({});
+                  this.setForceOpen(false);
+                },
+                priority: 'high',
+                setIsOpen: this.setStreamingModalIsOpen,
+                isOpen: isStreamingModalOpen,
+              }}
+              {...propsToPassModal}
+            />),
+          )
+        }
         {this.renderModal(
           isExternalVideoModalOpen,
           this.setExternalVideoModalIsOpen,

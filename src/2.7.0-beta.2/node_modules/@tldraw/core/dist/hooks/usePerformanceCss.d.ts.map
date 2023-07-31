@@ -1,1 +1,0 @@
-{"version":3,"file":"usePerformanceCss.d.ts","sourceRoot":"","sources":["../../src/hooks/usePerformanceCss.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,KAAK,MAAM,OAAO,CAAA;AAC9B,OAAO,EAAE,iBAAiB,EAAE,MAAM,QAAQ,CAAA;AAE1C,wBAAgB,iBAAiB,CAC/B,eAAe,EAAE,iBAAiB,GAAG,SAAS,EAC9C,UAAU,EAAE,KAAK,CAAC,YAAY,CAAC,cAAc,CAAC,QAkC/C"}
