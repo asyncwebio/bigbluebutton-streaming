@@ -39,7 +39,7 @@ class StreamingModal extends Component {
       setIsOpen,
       callbackToClose
     } = this.props;
-    console.log("startStreamingHandler", this.props)
+
     const { streamUrl, streamKey } = this.state;
 
     if (!streamUrl && !streamKey) {

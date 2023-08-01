@@ -26,16 +26,19 @@ if [[ " ${available_versions[@]} " =~ " ${version} " ]]; then
     BBB_URL=$(grep -oP '(?<=bigbluebutton\.web\.serverURL=).*' /etc/bigbluebutton/bbb-web.properties)
     BBB_URL="${BBB_URL}/bigbluebutton/"
     BBB_SECRET=$(grep -oP '(?<=securitySalt=).*' /etc/bigbluebutton/bbb-web.properties)
+    NUMBER_OF_CONCURRENT_STREAMINGS=1
 
     # Check if .env file exists
     if [[ -f .env ]]; then
         # Overwrite existing environment variables if they exist
         sed -i -E "s~^(BBB_URL=).*~\1${BBB_URL}~" .env
         sed -i -E "s~^(BBB_SECRET=).*~\1${BBB_SECRET}~" .env
+        sed -i -E "s~^(NUMBER_OF_CONCURRENT_STREAMINGS=).*~\1${NUMBER_OF_CONCURRENT_STREAMINGS}~" .env
     else
         # Create new .env file
         echo "BBB_URL=${BBB_URL}" >> .env
         echo "BBB_SECRET=${BBB_SECRET}" >> .env
+        echo "NUMBER_OF_CONCURRENT_STREAMINGS=${NUMBER_OF_CONCURRENT_STREAMINGS}" >> .env
     fi
 
     cat .env
