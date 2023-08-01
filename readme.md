@@ -115,10 +115,10 @@ Now, your server can handle the number of concurrent streams you've specified, a
 
 
 <div align="center">
-  <img alt="bbb-streaming-error" width="250" src="/static/bigbluebutton-streaming-error.png"> 
+  <img alt="bbb-streaming-error" width="100%" src="static/bigbluebutton-streaming-error.png"> 
 </div>
 
-
+<br />
 
 > 🚨 Note: If you encounter the error shown above, it indicates that your server has reached its limit for concurrent streams.
 
