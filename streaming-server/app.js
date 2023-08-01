@@ -26,7 +26,6 @@ const bbb = {
   salt: process.env.BBB_SECRET,
 };
 
-const containerName = 'bbb-stream';
 
 app.post('/bot/start', async (req, res) => {
   try {
@@ -36,7 +35,6 @@ app.post('/bot/start', async (req, res) => {
       hideUserListAndChat,
       rtmpUrl
     } = req.body;
-
 
     // get meeting info from bbb 
     const params = {
@@ -52,76 +50,71 @@ app.post('/bot/start', async (req, res) => {
 
     const info = xmlToJson(meetingInfo.data)
 
-    const attendiePassword = info.response.attendeePW[0];
+    const attendeePassword = info.response.attendeePW[0];
 
-    // Replace with your container name
     const envVariables = {
       MEETING_ID: meetingId,
-      ATTENDIEE_PW: attendiePassword,
+      ATTENDEE_PW: attendeePassword,
       SHOW_PRESENTATION: showPresentation,
       HIDE_USER_LIST_AND_CHAT: hideUserListAndChat,
       RTMP_URL: rtmpUrl
-      // Add more environment variables as needed
     };
 
+    const image = 'bbb-stream:v1.0';
 
-    // Check if the container is already running
-    docker.listContainers({ all: true }, (err, containers) => {
-      if (err) {
-        console.error('Error listing containers:', err);
-        return res.status(500).json({ error: 'Internal Server Error' });
-      }
+    let containers = await docker.listContainers({ all: true });
+    let streamingContainers = containers.filter(container => container.Image === image);
 
-      const runningContainer = containers.find(
-        (container) => container.Names.includes(`/${containerName}`)
-      );
+    if (streamingContainers.length >= process.env.NUMBER_OF_CONCURRENT_STREAMINGS) {
+      return res.status(500).json({ error: `Too Many Streams: You've reached the streaming limit. Check back in a while to continue.` });
+    }
 
-      if (runningContainer) {
-        const containerId = runningContainer.Id;
-        const containerName = runningContainer.Names[0].replace('/', '');
-        console.error(`Container '${containerName}' with ID '${containerId}' is already running`);
-        return res.status(500).json({ error: `Another meeting is already streaming. You would be able to stream once that stream ends.` });
-      }
+    const containerName = `bbb-stream-${meetingId}`; // create a unique container name using the meetingId
 
-      const hostConfig = {
-        Binds: ['/var/run/docker.sock:/var/run/docker.sock'], // Mount the Docker socket
-        AutoRemove: true,
-      };
-      // Create and start the container
-      docker.createContainer(
-        {
-          Image: `${containerName}:v1.0`, // Replace with your container image
-          name: containerName,
-          Env: Object.entries(envVariables).map(([name, value]) => `${name}=${value}`),
-          Tty: false,
-          HostConfig: hostConfig, // Add HostConfig with volume mount
-        },
-        (err, container) => {
+    const hostConfig = {
+      Binds: ['/var/run/docker.sock:/var/run/docker.sock'], // Mount the Docker socket
+      AutoRemove: true,
+    };
+
+    docker.createContainer(
+      {
+        Image: image,
+        name: containerName,
+        Env: Object.entries(envVariables).map(([name, value]) => `${name}=${value}`),
+        Tty: false,
+        HostConfig: hostConfig,
+      },
+      (err, container) => {
+        if (err) {
+          console.error('Error creating container:', err);
+          return res.status(500).json({ error: 'Internal Server Error' });
+        }
+
+        container.start((err) => {
           if (err) {
-            console.error('Error creating container:', err);
+            console.error('Error starting container:', err);
             return res.status(500).json({ error: 'Internal Server Error' });
           }
 
-          container.start((err) => {
-            if (err) {
-              console.error('Error starting container:', err);
-              return res.status(500).json({ error: 'Internal Server Error' });
-            }
+          console.log('Stream started successfully');
+          return res.status(200).json({ message: 'Stream started successfully' });
+        });
+      }
+    );
 
-            console.log('Stream started successfully');
-            return res.status(200).json({ message: 'Stream started successfully' });
-          });
-        }
-      );
-    });
   } catch (error) {
-    return res.status(500).json({ error })
+    return res.status(500).json({ error });
   }
-
 });
 
-app.get('/bot/stop', async (req, res) => {
+
+app.post('/bot/stop', async (req, res) => {
   try {
+    const {
+      meetingId,
+    } = req.body;
+
+    const containerName = `bbb-stream-${meetingId}`;
     const container = docker.getContainer(containerName);
 
     container.remove({ force: true }, function (err) {

@@ -36,7 +36,10 @@ const startStreaming = async (streamUrl, streamKey) => {
 
 const stopStreaming = async () => {
   try {
-    const response = await axios.get(`${URL}/bot/stop`, config)
+    const data = {
+      meetingId: Auth._meetingID
+    };
+    const response = await axios.post(`${URL}/bot/stop`, data, config)
     return response;
   } catch (error) {
     if (error.response && error.response.status === 500) {
