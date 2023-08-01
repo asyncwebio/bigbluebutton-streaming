@@ -65,9 +65,9 @@ cd bigbluebutton-streaming
 bash install.sh
 ```
 
-> Note: install.sh will restart the bigbluebutton server, please make sure there is no meetings running on the server.
+> 🚨 Note: install.sh will restart the bigbluebutton server, please make sure there is no meetings running on the server.
 
-> Make sure to stop streaming before Ending the BigBlueButton session.
+> 💡 Make sure to stop streaming before Ending the BigBlueButton session.
 
 <br/>
 
@@ -75,6 +75,60 @@ bash install.sh
 
 <br/>
 <br/>
+
+## 🔄 Concurrent Streaming
+
+If you aim to host multiple meetings simultaneously on your single BigBlueButton server and require concurrent streaming for each, follow these steps to set it up.
+
+- Navigate to the streaming server directory:
+```bash
+cd bigbluebutton-streaming/streaming-server/
+```
+
+- Open the .env file for editing using sudo privileges. For instance, with the vi editor:
+```bash
+sudo vi .env
+```
+
+- In the .env file, modify the NUMBER_OF_CONCURRENT_STREAMINGS variable to indicate the number of simultaneous streams you want to handle. For instance, to enable three concurrent streams:
+```bash
+NUMBER_OF_CONCURRENT_STREAMINGS=3
+```
+
+- Save your changes and exit the file editor.
+
+- Build  Docker image:
+```bash
+docker build -t bbb-stream:v1.0 .
+```
+
+- Finally, restart your bbb-streaming service with pm2:
+```bash
+pm2 restart bbb-streaming
+```
+
+<br />
+Now, your server can handle the number of concurrent streams you've specified, allowing each meeting to be streamed simultaneously.
+
+
+<br /> <br />
+
+
+<div align="center">
+  <img alt="bbb-streaming-error" width="250" src="/static/bigbluebutton-streaming-error.png"> 
+</div>
+
+
+
+> 🚨 Note: If you encounter the error shown above, it indicates that your server has reached its limit for concurrent streams.
+
+<br />
+
+> 💡 Remember: Successful operation of concurrent streaming depends significantly on the capacity of your server. Ensure that your server is capable of handling the number of concurrent streams you've set.
+
+<br/><br/>
+
+
 
 ## 🗑️ Uninstallation
 
