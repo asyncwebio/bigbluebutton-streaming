@@ -142,6 +142,11 @@ bash uninstall.sh
 
 <br/><br/>
 
+## 🛠️ Troubleshooting
+
+
+
+
 ## 🔎 How it works
 
 1. 🚀 **Node.js App:** The Node.js app start streaming container, serving as a controller for streaming BigBlueButton meetings.
