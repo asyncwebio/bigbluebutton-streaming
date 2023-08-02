@@ -7,13 +7,27 @@ if [[ $EUID -eq 0 ]]; then
     exit 1
 fi
 
-# Check if the Docker container is running
-if [[ $(docker ps --filter "name=bbb-stream" --format '{{.Names}}') == 'bbb-stream' ]]; then
-    # Stop the Docker container
-    docker stop bbb-stream
-    echo "Container bbb-stream stopped successfully"
+# Get the list of container IDs for the image
+container_ids=$(docker ps -q --filter ancestor=bbb-stream:v1.0)
+
+# If the container_ids variable is not empty
+if [[ -n "$container_ids" ]]; then
+    echo "Stopping Docker containers running the image bbb-stream:v1.0..."
+    
+    # Stop all running containers of the image
+    docker stop $container_ids
+
+    echo "Containers stopped. Waiting a few seconds before removal..."
+    sleep 5  # Wait for 5 seconds
+
+    echo "Removing Docker containers..."
+    
+    # Remove all stopped containers of the image
+    docker rm $container_ids
+    
+    echo "All Docker containers running the image bbb-stream:v1.0 have been stopped and removed."
 else
-    echo "Container bbb-stream does not exist or is not running"
+    echo "No Docker containers are running the image bbb-stream:v1.0."
 fi
 
 # Check if the Docker image exists
@@ -23,19 +37,6 @@ if [[ $(docker images -q bbb-stream:v1.0) ]]; then
     echo "Image bbb-stream:v1.0 removed successfully"
 else
     echo "Image bbb-stream:v1.0 does not exist"
-fi
-
-# Check if streaming.nginx file exists
-if [[ -e /usr/share/bigbluebutton/nginx/streaming.nginx ]]; then
-    # Remove streaming.nginx file
-    sudo rm /usr/share/bigbluebutton/nginx/streaming.nginx
-    echo "File streaming.nginx removed successfully"
-    
-    # Restart Nginx
-    sudo systemctl restart nginx
-    echo "Nginx restarted successfully"
-else
-    echo "File streaming.nginx does not exist"
 fi
 
 # Check if bbb-streaming process Exists
