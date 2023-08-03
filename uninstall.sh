@@ -8,14 +8,14 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 # Get the list of container IDs for the image
-container_ids=$(docker ps -q --filter ancestor=bbb-stream:v1.0)
+container_ids=$(sudo docker ps -q --filter ancestor=bbb-stream:v1.0)
 
 # If the container_ids variable is not empty
 if [[ -n "$container_ids" ]]; then
     echo "Stopping Docker containers running the image bbb-stream:v1.0..."
     
     # Stop all running containers of the image
-    docker stop $container_ids
+   sudo docker stop $container_ids
 
     echo "Containers stopped. Waiting a few seconds before removal..."
     sleep 5  # Wait for 5 seconds
@@ -23,7 +23,7 @@ if [[ -n "$container_ids" ]]; then
     echo "Removing Docker containers..."
     
     # Remove all stopped containers of the image
-    docker rm $container_ids
+   sudo docker rm $container_ids
     
     echo "All Docker containers running the image bbb-stream:v1.0 have been stopped and removed."
 else
@@ -31,9 +31,9 @@ else
 fi
 
 # Check if the Docker image exists
-if [[ $(docker images -q bbb-stream:v1.0) ]]; then
+if [[ $(sudo docker images -q bbb-stream:v1.0) ]]; then
     # Remove the Docker image
-    docker rmi bbb-stream:v1.0
+    sudo docker rmi bbb-stream:v1.0
     echo "Image bbb-stream:v1.0 removed successfully"
 else
     echo "Image bbb-stream:v1.0 does not exist"

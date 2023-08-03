@@ -28,7 +28,7 @@ const startStreaming = async (streamUrl, streamKey) => {
     if (error.response && error.response.status === 500) {
       throw (error.response.data.error);
     } else if (error.response && error.response.status === 502) {
-      throw ("Something went wrong, please visit this link to trouble shoot: https://github.com/AsyncWeb/bigbluebutton-streaming#%EF%B8%8F-troubleshooting");
+      throw ("Something went wrong, please contact your server administrator.");
     }
     else {
       console.error('inside Error', error.response.status);
@@ -48,7 +48,7 @@ const stopStreaming = async () => {
     if (error.response && error.response.status === 500) {
       throw (error.response.data.error);
     } else if (error.response && error.response.status === 502) {
-      throw ("Something went wrong, please visit this link to trouble shoot: https://github.com/AsyncWeb/bigbluebutton-streaming#%EF%B8%8F-troubleshooting");
+      throw ("Something went wrong, please contact your server administrator.");
     }
     else {
       console.error('inside Error', error);
