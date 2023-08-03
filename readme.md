@@ -45,9 +45,10 @@ The requirement to install this software is BigBlueButton should be installed.
 
 **Minimum environment requirements**
 
-- BigBlueButton versions ['2.6.10' '2.7.0-beta.2'].
+- The software is compatible with BigBlueButton versions ['2.6.10' '2.7.0-beta.2']. Please ensure one of these versions is pre-installed.
 - Docker must be installed on the system to manage containerization and deployment of     BigBlueButton.
 - A properly configured and functioning TURN server is necessary for real-time communication and media relay.
+- You should have a user account on your  system configured to execute sudo commands without the requirement to enter a password each time. This is crucial for some installation processes that require administrator-level permissions.
 
 <br/><br/>
 
@@ -148,45 +149,107 @@ bash uninstall.sh
 <br />
 
 <div align="center">
-  <img alt="bbb-streaming-error" width="100%" src="static/streaming-error-1.png"> 
+  <img alt="bbb-streaming-error" width="90%" src="static/streaming-error-1.png"> 
 </div>
 <br/>
 
-- 🚨 When you encounter the error above, most likely the BigBlueButton-streaming backend (`bbb-streaming`) is not running. Please follow the steps below to troubleshoot:
+1. 🚨 When you encounter the error above, most likely the BigBlueButton-streaming backend (`bbb-streaming`) is not running. Please follow the steps below to troubleshoot:
 
-    1. 🔍 Execute the command below to check whether `pm2` is present and is running the node application on your BigBlueButton server
+    - 🔍 Execute the command below to check whether `pm2` is present and is running the node application on your BigBlueButton server
 
-    ```bash
-    pm2 list
-    ```
+          ```bash
+          pm2 list
+          ```
     
     <div align="center">
-      <img alt="bbb-streaming-error" width="100%" src="static/streaming-error-2.png"> 
+      <img alt="bbb-streaming-error" width="90%" src="static/streaming-error-2.png"> 
     </div>
      <br/>
 
-    2. ⚠️ If you find bbb-streaming listed above with status not as `online`, you would need to restart `bbb-streaming` by using the following command:
+    - ⚠️ If you find bbb-streaming listed above with status not as `online`, you would need to restart `bbb-streaming` by using the following command:
 
-    ```bash
-    pm2 restart bbb-streaming
-    ```
+          ```bash
+          pm2 restart bbb-streaming
+          ```
 
-    3. ✅ Now, you would be seeing `bbb-streaming` status as online. 
+    - ✅ Now, you would be seeing `bbb-streaming` status as online. 
 
     <div align="center">
-      <img alt="bbb-streaming-error" width="100%" src="static/streaming-error-3.png"> 
+      <img alt="bbb-streaming-error" width="90%" src="static/streaming-error-3.png"> 
     </div>
-
-    4. ⚠️ If you still face issues in running streaming, please email us at support@higheredlab.com and we would be happy to help you. 
 
     <br/>
 
-- 📝 If you encounter other errors, try looking for error logs by running the following command:
 
-```bash
-pm2 logs bbb-streaming
-```
-and share the logs with us by creating an issue on this repository 📮. Please ensure to include relevant screenshots and a detailed description of the problem for better assistance. 
+2. 📝 If you encounter other errors, try looking for error logs by running the following command:
+
+        ```bash
+        pm2 logs bbb-streaming
+        ```
+<br/>
+
+  - 📜 If you see error log as below, it means the error message you are seeing typically occurs when trying to use sudo in a script or automated process where no terminal is available to provide the password interactively.
+
+    <div align="center">
+      <img alt="bbb-streaming-error" width="90%" src="static/streaming-error-4.png"> 
+    </div>
+    <br/>
+
+    - 🚨 To fix this, a user to run sudo without needing to enter a password, you can modify the sudoers file.Here are the steps:
+
+        - Open a terminal.
+        - Type `sudo visudo`. This will open the sudoers file in the system's default text editor. The visudo command checks the syntax of the sudoers file to help prevent you from accidentally locking yourself out of the system.
+
+        - Scroll down to the section of the file that looks like this:
+
+        ```bash
+        # User privilege specification
+        root    ALL=(ALL:ALL) ALL
+        ```
+
+        - Underneath the root user, add the following line, replacing `username` with the username for which you want to allow passwordless sudo commands:
+
+        ```bash
+        username ALL=(ALL:ALL) NOPASSWD: ALL
+        ```
+
+        - Press `Ctrl+X` to exit the editor, then `Y` to save changes, and `Enter` to confirm.
+
+        - Now Restart the `bbb-streaming` service by running the following command:
+
+        ```bash
+        pm2 restart bbb-streaming
+        ```
+
+        <br />
+
+        Now, the user you added will be able to use `sudo` without being asked for a password. 
+
+<br/>
+
+> 📝If you find diffrent logs, share with us by creating an issue on this repository 📮. Please ensure to include relevant screenshots and a detailed description of the problem for better assistance.
+ 
+<br /> <br />
+
+3. 🚨 When you run `bash uninstall.sh`, and if encounter below error:
+    ```
+    permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/json?filters=%7B%22ancestor%22%3A%7B%22bbb-stream%3Av1.0%22%3Atrue%7D%7D": dial unix /var/run/docker.sock: connect: permission denied
+    ```
+    - 📝 The error message you're encountering is related to the Docker permissions. Your user does not have the required permissions to interact with the Docker daemon. To fix this:
+    
+    - **Add your user to the docker group:** This is the most straightforward solution. It allows your user to interact with the Docker daemon as if you were the root user. 
+
+        ```bash
+        sudo usermod -aG docker $USER
+        ```
+
+      And then **log out and log back in** so that your group membership is re-evaluated.
+
+    - Run again `bash uninstall.sh` and you should be good to go.
+
+<br />
+
+ >  ⚠️ If you still face issues in running streaming, please email us at support@higheredlab.com and we would be happy to help you. 
 
 
 <br /><br />
