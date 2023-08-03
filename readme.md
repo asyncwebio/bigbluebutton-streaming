@@ -142,9 +142,52 @@ bash uninstall.sh
 
 <br/><br/>
 
+
 ## 🛠️ Troubleshooting
 
+<br />
 
+<div align="center">
+  <img alt="bbb-streaming-error" width="100%" src="static/streaming-error-1.png"> 
+</div>
+<br/>
+
+- 🚨 If you encounter the error shown above, it indicates that the BigBlueButton-streaming backend is not running. To resolve this, follow the steps below:
+
+    1. 🔍 Ensure the pm2 is present and running the node application on your BigBlueButton server. To check this, use the command:
+
+    ```bash
+    pm2 list
+    ```
+    
+    <div align="center">
+      <img alt="bbb-streaming-error" width="100%" src="static/streaming-error-2.png"> 
+    </div>
+     <br/>
+
+    2. ⚠️ If the bbb-streaming is listed and its status is anything other than online, you should restart the bbb-streaming by using the following command:
+
+    ```bash
+    pm2 restart bbb-streaming
+    ```
+
+    3. ✅ You should see the status of bbb-streaming change to online. 
+
+    <div align="center">
+      <img alt="bbb-streaming-error" width="100%" src="static/streaming-error-3.png"> 
+    </div>
+
+    <br/>
+
+- 📝 If you encounter other errors, try looking for error logs by running the following command:
+
+```bash
+pm2 logs bbb-streaming
+```
+and share the logs with us by creating an issue on this repository 📮. Please ensure to include relevant screenshots and a detailed description of the problem for better assistance. 
+
+
+<br /><br />
 
 
 ## 🔎 How it works

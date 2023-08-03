@@ -27,8 +27,11 @@ const startStreaming = async (streamUrl, streamKey) => {
   } catch (error) {
     if (error.response && error.response.status === 500) {
       throw (error.response.data.error);
-    } else {
-      console.error('inside Error', error.message);
+    } else if (error.response && error.response.status === 502) {
+      throw ("Something went wrong, please visit this link to trouble shoot: https://github.com/AsyncWeb/bigbluebutton-streaming#%EF%B8%8F-troubleshooting");
+    }
+    else {
+      console.error('inside Error', error.response.status);
       throw new Error('An error occurred');
     }
   }
@@ -44,8 +47,11 @@ const stopStreaming = async () => {
   } catch (error) {
     if (error.response && error.response.status === 500) {
       throw (error.response.data.error);
-    } else {
-      console.error('inside Error', error.message);
+    } else if (error.response && error.response.status === 502) {
+      throw ("Something went wrong, please visit this link to trouble shoot: https://github.com/AsyncWeb/bigbluebutton-streaming#%EF%B8%8F-troubleshooting");
+    }
+    else {
+      console.error('inside Error', error);
       throw new Error('An error occurred');
     }
   }
