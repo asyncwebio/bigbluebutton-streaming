@@ -157,9 +157,9 @@ bash uninstall.sh
 
     - 🔍 Execute the command below to check whether `pm2` is present and is running the node application on your BigBlueButton server
 
-          ```bash
-          pm2 list
-          ```
+        ```bash
+        pm2 list
+        ```
     
     <div align="center">
       <img alt="bbb-streaming-error" width="90%" src="static/streaming-error-2.png"> 
@@ -168,9 +168,9 @@ bash uninstall.sh
 
     - ⚠️ If you find bbb-streaming listed above with status not as `online`, you would need to restart `bbb-streaming` by using the following command:
 
-          ```bash
-          pm2 restart bbb-streaming
-          ```
+        ```bash
+        pm2 restart bbb-streaming
+        ```
 
     - ✅ Now, you would be seeing `bbb-streaming` status as online. 
 
@@ -183,9 +183,9 @@ bash uninstall.sh
 
 2. 📝 If you encounter other errors, try looking for error logs by running the following command:
 
-        ```bash
-        pm2 logs bbb-streaming
-        ```
+      ```bash
+      pm2 logs bbb-streaming
+      ```
 <br/>
 
   - 📜 If you see error log as below, it means the error message you are seeing typically occurs when trying to use sudo in a script or automated process where no terminal is available to provide the password interactively.
