@@ -55,7 +55,7 @@ The requirement to install this software is BigBlueButton should be installed.
 
 ## 📦 Installation
 
-- Clone the respository.
+- Clone the repository.
 - Goto `bigbluebutton-streaming/`
 - Run install.sh
 ```bash
