@@ -155,7 +155,7 @@ bash uninstall.sh
 
 1. 🚨 When you encounter the error above, most likely the BigBlueButton-streaming backend (`bbb-streaming`) is not running. Please follow the steps below to troubleshoot:
 
-    - 🔍 Execute the command below to check whether `pm2` is present and is running the node application on your BigBlueButton server
+    - Execute the command below to check whether `pm2` is present and is running the node application on your BigBlueButton server
 
         ```bash
         pm2 list
@@ -166,13 +166,13 @@ bash uninstall.sh
     </div>
      <br/>
 
-    - ⚠️ If you find bbb-streaming listed above with status not as `online`, you would need to restart `bbb-streaming` by using the following command:
+    - If you find bbb-streaming listed above with status not as `online`, you would need to restart `bbb-streaming` by using the following command:
 
         ```bash
         pm2 restart bbb-streaming
         ```
 
-    - ✅ Now, you would be seeing `bbb-streaming` status as online. 
+    - Now, you would be seeing `bbb-streaming` status as online. 
 
     <div align="center">
       <img alt="bbb-streaming-error" width="90%" src="static/streaming-error-3.png"> 
@@ -181,21 +181,21 @@ bash uninstall.sh
     <br/>
 
 
-2. 📝 If you encounter other errors, try looking for error logs by running the following command:
+2. 🚨 If you encounter other errors, try looking for error logs by running the following command:
 
       ```bash
       pm2 logs bbb-streaming
       ```
 <br/>
 
-  - 📜 If you see error log as below, it means the error message you are seeing typically occurs when trying to use sudo in a script or automated process where no terminal is available to provide the password interactively.
+  - If you see error log as below, it means the error message you are seeing typically occurs when trying to use sudo in a script or automated process where no terminal is available to provide the password interactively.
 
     <div align="center">
       <img alt="bbb-streaming-error" width="90%" src="static/streaming-error-4.png"> 
     </div>
     <br/>
 
-    - 🚨 To fix this, a user to run sudo without needing to enter a password, you can modify the sudoers file.Here are the steps:
+    - To fix this, a user to run sudo without needing to enter a password, you can modify the sudoers file.Here are the steps:
 
         - Open a terminal.
         - Type `sudo visudo`. This will open the sudoers file in the system's default text editor. The visudo command checks the syntax of the sudoers file to help prevent you from accidentally locking yourself out of the system.
@@ -235,7 +235,7 @@ bash uninstall.sh
     ```
     permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/json?filters=%7B%22ancestor%22%3A%7B%22bbb-stream%3Av1.0%22%3Atrue%7D%7D": dial unix /var/run/docker.sock: connect: permission denied
     ```
-    - 📝 The error message you're encountering is related to the Docker permissions. Your user does not have the required permissions to interact with the Docker daemon. To fix this:
+    - The error message you're encountering is related to the Docker permissions. Your user does not have the required permissions to interact with the Docker daemon. To fix this:
     
     - **Add your user to the docker group:** This is the most straightforward solution. It allows your user to interact with the Docker daemon as if you were the root user. 
 

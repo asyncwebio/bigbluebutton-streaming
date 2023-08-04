@@ -52,7 +52,7 @@ class StreamingModal extends Component {
         ...this.state,
         errorMsg: "RTMP URL is required"
       })
-    } else if (!streamUrl.startsWith('rtmp://')) {
+    } else if (!/^rtmp(s)?:\/\//.test(streamUrl)) {
       this.setState({
         ...this.state,
         errorMsg: "Invalid RTMP URL"
