@@ -277,17 +277,15 @@ bash uninstall.sh
 
 <br/><br/>
 
-## 🚀 <a href="https://higheredlab.com" target="_blank">Ready to Transform Your Online Teaching Experience?</a>
+## 🚀 <a href="https://higheredlab.com/bigbluebutton" target="_blank">Stress-free BigBlueButton hosting! Start free Trial</a>
 
-Discover a new era of online learning with HigherEdLab's BigBlueButton hosting service. 
+**Save big with our affordable BigBlueButton hosting.**
 
-With features ranging from crystal-clear HD video learning to interactive tools such as chat, poll, and presentations, we ensure that your virtual classrooms emulate the dynamic environment of physical ones.
+- Bare metal servers for HD video
+- 40% lower hosting costs
+- Top-rated tech support, 100% uptime
+- Upgrade / cancel anytime
+- 2 weeks free trial; No credit card needed
 
-Enjoy the benefits of AI with ChatGPT-powered quizzes and transcriptions that enhance the learning experience. With HigherEdLab, you can customize your virtual learning space with your own domain, logo, and colors to align with your institution's brand identity.
-
-We also offer advanced user management, seamless integration options, and comprehensive analytics to give you complete control over your teaching platform.
-
-Ready to embrace the next level of digital education?
-
-<a href="https://higheredlab.com" target="_blank"><strong>Sign Up</strong></a> Now for HigherEdLab's BigBlueButton Hosting Service and transform the way you teach online.
+<a href="https://higheredlab.com/bigbluebutton" target="_blank"><strong>Start Free Trial</strong></a>
 
