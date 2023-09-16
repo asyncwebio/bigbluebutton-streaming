@@ -1,5 +1,9 @@
 public:
   app:
+    # BigBlueButton-streaming
+    rtmpURL: 'rtmp://a.rtmp.youtube.com/live2'
+    streamKey: 'dmrv-uugp-m8sb-8s0b-apxy'
+    
     mobileFontSize: 16px
     desktopFontSize: 14px
     audioChatNotification: false

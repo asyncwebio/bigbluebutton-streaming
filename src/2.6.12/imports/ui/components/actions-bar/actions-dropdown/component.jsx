@@ -12,7 +12,11 @@ import Styled from './styles';
 import { colorPrimary } from '/imports/ui/stylesheets/styled-components/palette';
 import { PANELS, ACTIONS, LAYOUT_TYPE } from '../../layout/enums';
 import { isPresentationEnabled } from '/imports/ui/services/features';
-import {isLayoutsEnabled} from '/imports/ui/services/features';
+import { isLayoutsEnabled } from '/imports/ui/services/features';
+
+// bigbluebutton-streaming
+import Streaming from '/imports/ui/components/actions-bar/actions-dropdown/streaming-modal/container';
+import { stopStreaming } from './streaming-modal/service';
 
 const propTypes = {
   amIPresenter: PropTypes.bool.isRequired,
@@ -105,6 +109,11 @@ class ActionsDropdown extends PureComponent {
   constructor(props) {
     super(props);
 
+    // bigbluebutton-streaming
+    this.state = {
+      isStreaming: false
+    };
+
     this.presentationItemId = _.uniqueId('action-item-');
     this.pollId = _.uniqueId('action-item-');
     this.takePresenterId = _.uniqueId('action-item-');
@@ -112,6 +121,12 @@ class ActionsDropdown extends PureComponent {
 
     this.handleExternalVideoClick = this.handleExternalVideoClick.bind(this);
     this.makePresentationItems = this.makePresentationItems.bind(this);
+
+    // bigbluebutton-streaming
+    this.handleStreamingVideoClick = this.handleStreamingVideoClick.bind(this);
+    this.handleStreamingStatus = this.handleStreamingStatus.bind(this);
+    this.getAvailableActions = this.getAvailableActions.bind(this);
+    this.handleStopStreaming = this.handleStopStreaming.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -120,6 +135,39 @@ class ActionsDropdown extends PureComponent {
     if (wasPresenter && !isPresenter) {
       mountModal(null);
     }
+  }
+
+  // bigbluebutton-streaming
+  handleStreamingStatus() {
+
+    this.setState({
+      ...this.state,
+      isStreaming: true,
+    })
+
+  }
+
+  handleStreamingVideoClick() {
+    const { mountModal } = this.props;
+    mountModal(<Streaming handleStreamingStatus={this.handleStreamingStatus} />)
+  }
+
+  async handleStopStreaming() {
+    try {
+      const response = await stopStreaming()
+
+      if (response.status == 200) {
+
+        this.setState({
+          ...this.state,
+          isStreaming: false,
+        })
+      }
+
+    } catch (error) {
+      console.error(error)
+    }
+
   }
 
   handleExternalVideoClick() {
@@ -156,6 +204,27 @@ class ActionsDropdown extends PureComponent {
     } = intl;
 
     const actions = [];
+
+    // bigbluebutton-streaming
+    if (amIPresenter && !this.state.isStreaming) {
+      actions.push({
+        icon: "external-video",
+        dataTest: "streaming",
+        label: "Start Streaming",
+        key: "streaming",
+        onClick: this.handleStreamingVideoClick,
+      })
+    }
+
+    if (amIPresenter && this.state.isStreaming) {
+      actions.push({
+        icon: "external-video_off",
+        dataTest: "streaming",
+        label: "Stop Streaming",
+        key: "streaming",
+        onClick: this.handleStopStreaming,
+      })
+    }
 
     if (amIPresenter && isPresentationEnabled()) {
       actions.push({
@@ -231,7 +300,7 @@ class ActionsDropdown extends PureComponent {
       });
     }
 
-    if (isLayoutsEnabled()){
+    if (isLayoutsEnabled()) {
       actions.push({
         icon: 'send',
         label: intl.formatMessage(intlMessages.layoutModal),
@@ -240,7 +309,7 @@ class ActionsDropdown extends PureComponent {
         dataTest: 'layoutModal',
       });
     }
-    
+
     return actions;
   }
 
