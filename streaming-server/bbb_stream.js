@@ -61,6 +61,7 @@ async function main() {
 
             // Hides presentation if HIDE_PRESENTATION is true
             if (HIDE_PRESENTATION === 'true') {
+                JOIN_PARAM['userdata-bbb_hide_presentation_on_join'] = 'true';
                 JOIN_PARAM['userdata-bbb_auto_swap_layout'] = 'true';
             }
 
