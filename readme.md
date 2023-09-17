@@ -66,6 +66,17 @@ cd bigbluebutton-streaming
 bash install.sh
 ```
 
+After successful installation, You can set default streaming server URL and access key by editing the `/usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml` file.
+
+```bash
+public:
+  app:
+    # BigBlueButton-streaming Rtmp URL and stream key.
+    # set default streaming server URL and access key here.
+    rtmpURL: ''
+    streamKey: ''
+```
+
 > 🚨 Note: install.sh will restart the bigbluebutton server, please make sure there is no meetings running on the server.
 
 > 💡 Make sure to stop streaming before Ending the BigBlueButton session.
