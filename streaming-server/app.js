@@ -31,8 +31,7 @@ app.post('/bot/start', async (req, res) => {
   try {
     const {
       meetingId,
-      showPresentation,
-      hideUserListAndChat,
+      hidePresentation,
       rtmpUrl
     } = req.body;
 
@@ -55,8 +54,7 @@ app.post('/bot/start', async (req, res) => {
     const envVariables = {
       MEETING_ID: meetingId,
       ATTENDEE_PW: attendeePassword,
-      SHOW_PRESENTATION: showPresentation,
-      HIDE_USER_LIST_AND_CHAT: hideUserListAndChat,
+      HIDE_PRESENTATION: hidePresentation,
       RTMP_URL: rtmpUrl
     };
 

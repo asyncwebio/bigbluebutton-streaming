@@ -13,8 +13,7 @@ var BBB_URL = process.env.BBB_URL;
 var BBB_SECRET = process.env.BBB_SECRET;
 var MEETING_ID = process.env.MEETING_ID;
 var ATTENDIEE_PW = process.env.ATTENDIEE_PW;
-var SHOW_PRESENTATION = process.env.SHOW_PRESENTATION
-var HIDE_USER_LIST_AND_CHAT = process.env.HIDE_USER_LIST_AND_CHAT;
+var HIDE_PRESENTATION = process.env.HIDE_PRESENTATION
 var RTMP_URL = process.env.RTMP_URL;
 let api = bbb.api(BBB_URL, BBB_SECRET)
 let http = bbb.http
@@ -54,20 +53,18 @@ async function main() {
                 'userdata-bbb_force_listen_only': 'true',
                 'userdata-bbb_listen_only_mode': 'true',
                 'userdata-bbb_skip_check_audio': 'true',
-                'userdata-bbb_show_public_chat_on_login': 'true',
+                'userdata-bbb_show_public_chat_on_login': 'false',
+                'userdata-bbb_show_participants_on_login': 'false',
                 'userdata-bbb_hide_actions_bar': 'true',
                 'role': 'VIEWER'
             };
 
-            // Hides presentation if SHOW_PRESENTATION is true
-            if (SHOW_PRESENTATION === 'false') {
+            // Hides presentation if HIDE_PRESENTATION is true
+            if (HIDE_PRESENTATION === 'true') {
+                JOIN_PARAM['userdata-bbb_hide_presentation_on_join'] = 'true';
                 JOIN_PARAM['userdata-bbb_auto_swap_layout'] = 'true';
             }
 
-            if (HIDE_USER_LIST_AND_CHAT === 'true') {
-                JOIN_PARAM['userdata-bbb_show_participants_on_login'] = 'false';
-                JOIN_PARAM['userdata-bbb_show_public_chat_on_login'] = 'false';
-            }
 
             // Create Join URL
             let url = api.administration.join('Live Stream', MEETING_ID, ATTENDIEE_PW, JOIN_PARAM);
