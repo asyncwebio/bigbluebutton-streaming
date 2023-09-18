@@ -71,10 +71,15 @@ After successful installation, You can set default streaming server URL and acce
 ```bash
 public:
   app:
-    # BigBlueButton-streaming Rtmp URL and stream key.
+    # BigBlueButton-streaming rtmp URL and stream key.
     # set default streaming server URL and access key here.
     rtmpURL: ''
     streamKey: ''
+```
+Once you set the rtmp URL and stream key, restart the bigbluebutton html5 client.
+
+```bash
+sudo systemctl restart bbb-html5
 ```
 
 > 🚨 Note: install.sh will restart the bigbluebutton server, please make sure there is no meetings running on the server.
