@@ -66,6 +66,19 @@ cd bigbluebutton-streaming
 bash install.sh
 ```
 
+> 🚨 Note: install.sh will restart the bigbluebutton server, please make sure there is no meetings running on the server.
+
+> 💡 Make sure to stop streaming before Ending the BigBlueButton session.
+
+<br/>
+
+[📺 Installation Demo](https://bbb1.asyncweb.io/recording/bigbluebutton-streaming-installation.mp4)
+
+<br/>
+<br/>
+
+## 🔗🔑 Set Default RTMP URL and Access Key
+
 After successful installation, You can set default streaming server URL and access key by editing the `/usr/share/meteor/bundle/programs/server/assets/app/config/settings.yml` file.
 
 ```bash
@@ -82,16 +95,7 @@ Once you set the rtmp URL and stream key, restart the bigbluebutton html5 client
 sudo systemctl restart bbb-html5
 ```
 
-> 🚨 Note: install.sh will restart the bigbluebutton server, please make sure there is no meetings running on the server.
-
-> 💡 Make sure to stop streaming before Ending the BigBlueButton session.
-
-<br/>
-
-[📺 Installation Demo](https://bbb1.asyncweb.io/recording/bigbluebutton-streaming-installation.mp4)
-
-<br/>
-<br/>
+<br/><br/>
 
 ## 🔄 Concurrent Streaming
 
