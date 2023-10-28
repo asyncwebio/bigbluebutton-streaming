@@ -2,7 +2,7 @@
 set -e
 
 # Define an array of available versions
-available_versions=("2.6.10" "2.6.12" "2.7.0-beta.2")  # Add more versions as needed
+available_versions=("2.6.10" "2.6.12" "2.7.0-beta.2" "2.7.0" )  # Add more versions as needed
 
 # Check if the user is root
 if [[ $EUID -eq 0 ]]; then
