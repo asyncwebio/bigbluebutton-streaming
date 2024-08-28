@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:focal
 # Set a variable for the install location.
 ARG WORK_DIR=/usr/src/app
 
