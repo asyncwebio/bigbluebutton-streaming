@@ -14,6 +14,8 @@ import { uniqueId } from '/imports/utils/string-utils';
 import { isPresentationEnabled, isLayoutsEnabled } from '/imports/ui/services/features';
 import VideoPreviewContainer from '/imports/ui/components/video-preview/container';
 import { screenshareHasEnded } from '/imports/ui/components/screenshare/service';
+import StreamingModal from '/imports/ui/components/actions-bar/actions-dropdown/streaming-modal/container';
+import { stopStreaming } from './streaming-modal/service';
 
 const propTypes = {
   amIPresenter: PropTypes.bool.isRequired,
@@ -131,6 +133,8 @@ class ActionsDropdown extends PureComponent {
       isRandomUserSelectModalOpen: false,
       isLayoutModalOpen: false,
       isCameraAsContentModalOpen: false,
+      isStreamingModalOpen: false,
+      isStreaming: false,
     };
 
     this.handleExternalVideoClick = this.handleExternalVideoClick.bind(this);
@@ -142,6 +146,10 @@ class ActionsDropdown extends PureComponent {
     this.setPropsToPassModal = this.setPropsToPassModal.bind(this);
     this.setForceOpen = this.setForceOpen.bind(this);
     this.handleTimerClick = this.handleTimerClick.bind(this);
+    this.handleStreamingClick = this.handleStreamingClick.bind(this);
+    this.setStreamingModalIsOpen = this.setStreamingModalIsOpen.bind(this);
+    this.handleStreamingStatus = this.handleStreamingStatus.bind(this);
+    this.handleStopStreaming = this.handleStopStreaming.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -154,6 +162,32 @@ class ActionsDropdown extends PureComponent {
 
   handleExternalVideoClick() {
     this.setExternalVideoModalIsOpen(true);
+  }
+
+  handleStreamingClick() {
+    this.setStreamingModalIsOpen(true);
+  }
+
+  handleStreamingStatus() {
+    this.setState({
+      ...this.state,
+      isStreaming: true,
+    });
+  }
+
+  async handleStopStreaming() {
+    try {
+      const response = await stopStreaming();
+
+      if (response.status == 200) {
+        this.setState({
+          ...this.state,
+          isStreaming: false,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   handleTimerClick() {
@@ -203,6 +237,26 @@ class ActionsDropdown extends PureComponent {
         key: this.presentationItemId,
         onClick: handlePresentationClick,
         dividerTop: this.props?.presentations?.length > 1 ? true : false,
+      });
+    }
+
+    if (amIPresenter && !this.state.isStreaming) {
+      actions.push({
+        icon: 'external-video',
+        dataTest: 'streaming',
+        label: 'Start Streaming',
+        key: 'streaming',
+        onClick: this.handleStreamingClick,
+      });
+    }
+
+    if (amIPresenter && this.state.isStreaming) {
+      actions.push({
+        icon: 'external-video_off',
+        dataTest: 'streaming',
+        label: 'Stop Streaming',
+        key: 'streaming',
+        onClick: this.handleStopStreaming,
       });
     }
 
@@ -302,12 +356,7 @@ class ActionsDropdown extends PureComponent {
   }
 
   makePresentationItems() {
-    const {
-      presentations,
-      setPresentation,
-      podIds,
-      setPresentationFitToWidth,
-    } = this.props;
+    const { presentations, setPresentation, podIds, setPresentationFitToWidth } = this.props;
 
     if (!podIds || podIds.length < 1) return [];
 
@@ -320,23 +369,25 @@ class ActionsDropdown extends PureComponent {
       .map((p) => {
         const customStyles = { color: colorPrimary };
 
-        return (
-          {
-            customStyles: p.current ? customStyles : null,
-            icon: "file",
-            iconRight: p.current ? 'check' : null,
-            selected: p.current ? true : false,
-            label: p.name,
-            description: "uploaded presentation file",
-            key: `uploaded-presentation-${p.id}`,
-            onClick: () => {
-              setPresentationFitToWidth(false);
-              setPresentation(p.id, podId);
-            },
-          }
-        );
+        return {
+          customStyles: p.current ? customStyles : null,
+          icon: 'file',
+          iconRight: p.current ? 'check' : null,
+          selected: p.current ? true : false,
+          label: p.name,
+          description: 'uploaded presentation file',
+          key: `uploaded-presentation-${p.id}`,
+          onClick: () => {
+            setPresentationFitToWidth(false);
+            setPresentation(p.id, podId);
+          },
+        };
       });
     return presentationItemElements;
+  }
+
+  setStreamingModalIsOpen(value) {
+    this.setState({ isStreamingModalOpen: value });
   }
 
   setExternalVideoModalIsOpen(value) {
@@ -393,13 +444,15 @@ class ActionsDropdown extends PureComponent {
       isRandomUserSelectModalOpen,
       isLayoutModalOpen,
       isCameraAsContentModalOpen,
+      isStreamingModalOpen,
     } = this.state;
 
     const availableActions = this.getAvailableActions();
     const availablePresentations = this.makePresentationItems();
-    const children = availablePresentations.length > 1 && amIPresenter
-      ? availablePresentations.concat(availableActions)
-      : availableActions;
+    const children =
+      availablePresentations.length > 1 && amIPresenter
+        ? availablePresentations.concat(availableActions)
+        : availableActions;
 
     const customStyles = { top: '-1rem' };
 
@@ -412,7 +465,7 @@ class ActionsDropdown extends PureComponent {
         <BBBMenu
           customStyles={!isMobile ? customStyles : null}
           accessKey={OPEN_ACTIONS_AK}
-          trigger={(
+          trigger={
             <Styled.HideDropdownButton
               open={isDropdownOpen}
               hideLabel
@@ -425,7 +478,7 @@ class ActionsDropdown extends PureComponent {
               circle
               onClick={() => null}
             />
-          )}
+          }
           actions={children}
           opts={{
             id: 'actions-dropdown-menu',
@@ -434,29 +487,50 @@ class ActionsDropdown extends PureComponent {
             elevation: 3,
             getcontentanchorel: null,
             fullwidth: 'true',
-            anchorOrigin: { vertical: 'top', horizontal: isRTL ? 'right' : 'left' },
-            transformOrigin: { vertical: 'bottom', horizontal: isRTL ? 'right' : 'left' },
+            anchorOrigin: {
+              vertical: 'top',
+              horizontal: isRTL ? 'right' : 'left',
+            },
+            transformOrigin: {
+              vertical: 'bottom',
+              horizontal: isRTL ? 'right' : 'left',
+            },
           }}
         />
+        {this.renderModal(isStreamingModalOpen, this.setStreamingModalIsOpen, 'high', () => (
+          <StreamingModal
+            handleStreamingStatus={this.handleStreamingStatus}
+            {...{
+              callbackToClose: () => {
+                this.setPropsToPassModal({});
+                this.setForceOpen(false);
+              },
+              priority: 'high',
+              setIsOpen: this.setStreamingModalIsOpen,
+              isOpen: isStreamingModalOpen,
+            }}
+            {...propsToPassModal}
+          />
+        ))}
         {this.renderModal(
           isExternalVideoModalOpen,
           this.setExternalVideoModalIsOpen,
           'low',
-          ExternalVideoModal,
+          ExternalVideoModal
         )}
         {amIPresenter && isSelectRandomUserEnabled
           ? this.renderModal(
-            isRandomUserSelectModalOpen,
-            this.setRandomUserSelectModalIsOpen,
-            'low',
-            RandomUserSelectContainer,
-          )
+              isRandomUserSelectModalOpen,
+              this.setRandomUserSelectModalIsOpen,
+              'low',
+              RandomUserSelectContainer
+            )
           : null}
         {this.renderModal(
           isLayoutModalOpen,
           this.setLayoutModalIsOpen,
           'low',
-          LayoutModalContainer,
+          LayoutModalContainer
         )}
         {this.renderModal(
           isCameraAsContentModalOpen,
